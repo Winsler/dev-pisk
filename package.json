@@ -1,0 +1,43 @@
+{
+  "name": "animation-player",
+  "version": "1.0.0",
+  "description": "https://github.com/rolling-scopes-school/tasks/blob/2018-Q3/tasks/piskel-animation-player.md",
+  "main": "animation-player/src/index.js",
+  "browserslist": [
+    "defaults"
+  ],
+  "scripts": {
+    "start": "webpack-dev-server --mode development --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rolling-scopes-school/Winsler-2019Q1.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rolling-scopes-school/Winsler-2019Q1/issues"
+  },
+  "homepage": "https://github.com/rolling-scopes-school/Winsler-2019Q1#readme",
+  "devDependencies": {
+    "@babel/core": "^7.4.5",
+    "@babel/preset-env": "^7.4.5",
+    "autoprefixer": "^9.5.1",
+    "babel-loader": "^8.0.6",
+    "css-loader": "^2.1.1",
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-loader": "^2.1.2",
+    "eslint-plugin-import": "^2.17.3",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0",
+    "html-loader": "^0.5.5",
+    "html-webpack-plugin": "^3.2.0",
+    "node-sass": "^4.12.0",
+    "postcss-loader": "^3.0.0",
+    "sass-loader": "^7.1.0",
+    "webpack": "^4.32.2",
+    "webpack-cli": "^3.3.2",
+    "webpack-dev-server": "^3.5.1"
+  }
+}
