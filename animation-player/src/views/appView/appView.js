@@ -2,6 +2,7 @@
 import Header from '../headerView/index';
 import Tools from '../toolsView/index';
 import FrameHolder from '../frameHolderView/index';
+import Canvas from '../canvasView/index';
 import html from './appView.html';
 
 class AppView {
@@ -12,6 +13,7 @@ class AppView {
       header: new Header(),
       tools: new Tools(),
       frames: new FrameHolder(),
+      canvas: new Canvas(),
       layot: wrapper.childNodes[0],
     };
   }
@@ -23,6 +25,7 @@ class AppView {
     this.components.tools.render(this.components.layot.querySelector('.tools'));
     this.components.frames.addFrame();
     this.components.frames.render(this.components.layot.querySelector('.frames'));
+    this.components.canvas.render(this.components.layot.querySelector('.canvas'));
   }
 }
 
