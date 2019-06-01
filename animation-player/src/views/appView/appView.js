@@ -1,5 +1,7 @@
+// TODO: унаследоваться от NodeComponentView
 import Header from '../headerView/index';
 import Tools from '../toolsView/index';
+import FrameHolder from '../frameHolderView/index';
 import html from './appView.html';
 
 class AppView {
@@ -9,6 +11,7 @@ class AppView {
     this.components = {
       header: new Header(),
       tools: new Tools(),
+      frames: new FrameHolder(),
       layot: wrapper.childNodes[0],
     };
   }
@@ -18,6 +21,8 @@ class AppView {
     this.components.header.render(body);
     body.appendChild(this.components.layot);
     this.components.tools.render(this.components.layot.querySelector('.tools'));
+    this.components.frames.addFrame();
+    this.components.frames.render(this.components.layot.querySelector('.frames'));
   }
 }
 
