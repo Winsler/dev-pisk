@@ -1,14 +1,9 @@
 import html from './header.html';
+import NodeComponentView from '../NodeComponentView/index';
 
-class Header {
+class Header extends NodeComponentView {
   constructor() {
-    const wrapper = document.createElement('div');
-    wrapper.innerHTML = html;
-    [this.node] = wrapper.childNodes;
-  }
-
-  render(parent) {
-    parent.appendChild(this.node);
+    super(html);
   }
 }
 
