@@ -1,0 +1,76 @@
+.head
+  position: relative
+
+  display: flex
+  align-items: center
+  height: 3rem
+
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.24), 0 0 4px rgba(0, 0, 0, 0.12)
+
+.burger-menu
+  position: relative
+
+  width: 1.13rem
+  height: 0.75rem
+  margin-left: 1.2rem
+
+.burger-menu__line::after,
+.burger-menu__line::before
+  content: ""
+  position: absolute
+  top: -5px
+
+  display: block
+  width: 100%
+  height: 100%
+
+  background: rgba(0, 0, 0, 0.54)
+
+
+.burger-menu__line::before
+  top: 5px
+
+.burger-menu__line
+  position: absolute
+  top: 5px
+
+  width: 100%
+  height: 2px
+
+  background: rgba(0, 0, 0, 0.54)
+
+.head__title
+  margin-left: 1.5rem
+
+  font-weight: 500
+  font-size: 1.25rem
+
+
+.handle__point,
+.handle__point::before,
+.handle__point::after
+  width: 4px
+  height: 4px
+
+  background: rgba(0, 0, 0, 0.54)
+  border-radius: 100%
+
+
+.handle__point::before,
+.handle__point::after
+  content: ""
+  position: absolute
+  top: 6px
+
+  display: block
+
+
+.handle__point::after
+  top: 12px
+
+
+.handle--head-handle
+  position: absolute
+  right: 20px
+
+  height: 16px

@@ -5,7 +5,7 @@ const webpack = require('webpack');
 const autoprefixer = require('autoprefixer');
 
 module.exports = {
-  entry: './animation-player/src/index.js',
+  entry: './animation-player/src/app.js',
   output: {
     filename: './animation-player/app.js',
     path: path.resolve(__dirname, 'animation-player/dist'),

@@ -1,3 +1,9 @@
-import render from './test/index';
+import AppView from './views/appView/index';
+import Controller from './controllers/index';
 
-render();
+const api = {
+  View: AppView,
+  Controller,
+};
+
+export default api;
