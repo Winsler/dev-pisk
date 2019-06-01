@@ -1,0 +1,39 @@
+.palette
+  display: flex
+  flex-direction: column
+  justify-content: space-around
+  width: 200px
+  height: 246px
+  margin: 19px 0 19px 19px
+
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.24), 0 0 4px rgba(0, 0, 0, 0.12);
+
+
+.palette__tool-wrapper
+  z-index: 3
+
+  height: calc((100% - 1px) / 4)
+
+  cursor: pointer
+
+  -webkit-user-select: none
+
+
+.palette__tool
+  display: flex
+  align-items: center
+  height: 100%
+
+
+.palette__tool:hover
+  background-color: gray
+
+
+.palette__img
+  margin: 0 33px 0 18px
+
+
+.palette__separate-line
+  width: 100%
+
+  border-bottom: 1px solid  rgba(0, 0, 0, 0.12)

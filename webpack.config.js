@@ -16,6 +16,9 @@ module.exports = {
       { test: /\.html$/, use: 'html-loader' },
       { test: /\.sass$/, use: ExtractTextPlugin.extract(['css-loader', 'postcss-loader', 'sass-loader']) },
       { test: /\.js$/, exclude: /(node_modules)/, use: { loader: 'babel-loader' } },
+      { test: /\.(gif|png|jpe?g|svg)$/, use: { loader: 'file-loader', options: {} } },
+      // eslint-disable-next-line max-len
+      // { test: /\.(gif|png|jpe?g|svg)$/i, use: { loader: 'image-webpack-loader', options: { disable: true } } },
     ],
   },
   plugins: [
