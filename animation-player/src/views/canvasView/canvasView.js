@@ -1,10 +1,10 @@
 import html from './canvasView.html';
-import NodeComponentView from '../NodeComponentView/index';
+import Canvas from '../Canvas/Canvas';
 
-class Canvas extends NodeComponentView {
+class CanvasMain extends Canvas {
   constructor() {
     super(html);
   }
 }
 
-export default Canvas;
+export default CanvasMain;

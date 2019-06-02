@@ -1,9 +1,9 @@
 import html from './frameView.html';
-import NodeComponentView from '../../NodeComponentView/index';
+import Canvas from '../../Canvas/Canvas';
 
-class Frame extends NodeComponentView {
-  constructor() {
-    super(html);
+class Frame extends Canvas {
+  constructor(h, options) {
+    super(html, options);
   }
 }
 

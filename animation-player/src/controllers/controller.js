@@ -6,6 +6,10 @@ class Controller {
 
   init() {
     this.view.render();
+    this.view.components.frames.components.btn.addEventListener('click',
+      () => {
+        this.view.components.frames.addFrame();
+      });
   }
 }
 

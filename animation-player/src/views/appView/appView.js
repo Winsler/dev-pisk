@@ -2,7 +2,7 @@
 import Header from '../headerView/index';
 import Tools from '../toolsView/index';
 import FrameHolder from '../frameHolderView/index';
-import Canvas from '../canvasView/index';
+import CanvasMain from '../canvasView/index';
 import html from './appView.html';
 
 class AppView {
@@ -13,7 +13,7 @@ class AppView {
       header: new Header(),
       tools: new Tools(),
       frames: new FrameHolder(),
-      canvas: new Canvas(),
+      canvas: new CanvasMain(),
       layot: wrapper.childNodes[0],
     };
   }

@@ -6,13 +6,23 @@ class FrameHolder extends NodeComponentView {
   constructor() {
     super(html);
     this.frameListNode = this.node.querySelector('.frames-wrapper__list');
+    this.style = getComputedStyle(this.node);
+    this.components = {
+      btn: this.node.querySelector('.frames-wrapper__btn'),
+    };
   }
 
   addFrame() {
-    const frame = new Frame();
+    const frame = new Frame({
+      parts: 3,
+      width: this.style.width,
+      height: this.style.height,
+    });
     const li = document.createElement('li');
-    li.appendChild(frame.node);
     this.frameListNode.appendChild(li);
+    frame.render(li);
+    frame.strokeRandomRect();
+    window.g = frame;
   }
 }
 
