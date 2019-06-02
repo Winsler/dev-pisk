@@ -3,26 +3,32 @@ import NodeComponentView from '../NodeComponentView/index';
 import Frame from './frameView/index';
 
 class FrameHolder extends NodeComponentView {
-  constructor() {
+  constructor(size) {
     super(html);
-    this.frameListNode = this.node.querySelector('.frames-wrapper__list');
     this.style = getComputedStyle(this.node);
     this.components = {
       btn: this.node.querySelector('.frames-wrapper__btn'),
+      frameList: this.node.querySelector('.frames-wrapper__list'),
+    };
+    this.options = {
+      size,
     };
   }
 
-  addFrame() {
-    const frame = new Frame({
-      parts: 3,
-      width: this.style.width,
-      height: this.style.height,
+  addFrame(rect) {
+    const frame = new Frame(null, rect, {
+      parts: this.options.size,
+      width: parseFloat(this.style.width),
+      height: parseFloat(this.style.height),
     });
     const li = document.createElement('li');
-    this.frameListNode.appendChild(li);
+    this.components.frameList.appendChild(li);
     frame.render(li);
-    frame.strokeRandomRect();
-    window.g = frame;
+  }
+
+  render(parent, rect) {
+    super.render(parent);
+    this.addFrame(rect);
   }
 }
 

@@ -9,29 +9,11 @@ class Canvas extends NodeComponentView {
     this.options = options;
   }
 
-  static getRandomHexColor() {
-    return `#${Math.floor(Math.random() * 16777215).toString(16)}`;
-  }
-
-  getRandomRect() {
-    const length = this.options.parts;
-    const rect = (new Array(length)).fill((new Array(length)).fill(0));
-    return rect.map(row => row.map(() => Canvas.getRandomHexColor()));
-  }
-
-  render(parent) {
+  render(parent, rect) {
     super.render(parent);
-    if (!this.options.width) {
-      this.resizeCanvas();
-    }
-    const rect = this.getRandomRect();
+    this.resizeCanvas();
     this.strokeRect(rect);
     return rect;
-  }
-
-  strokeRandomRect() {
-    const rect = this.getRandomRect();
-    this.strokeRect(rect);
   }
 
   resizeCanvas() {
@@ -43,12 +25,12 @@ class Canvas extends NodeComponentView {
     canvas.height = this.options.height;
   }
 
-  strokeRect(colors) {
+  strokeRect(rect) {
     const ctx = this.components.canvasNode.getContext('2d');
     const { parts } = this.options;
     for (let i = 0; i < parts; i += 1) {
       for (let j = 0; j < parts; j += 1) {
-        ctx.fillStyle = colors[i % parts][[j % parts]];
+        ctx.fillStyle = rect[i % parts][[j % parts]];
         ctx.fillRect(this.options.width / parts * i, this.options.height / parts * j,
           this.options.width / parts, this.options.height / parts);
       }
