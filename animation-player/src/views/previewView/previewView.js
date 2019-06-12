@@ -8,6 +8,12 @@ class Preview extends Canvas {
     this.components.fpsBox = this.node.querySelector('.fps');
     this.components.fullScreenBtn = this.node.querySelector('.full-screen-btn');
   }
+
+  render(parent, rect, defaultFPS) {
+    super.render(parent, rect);
+    this.components.fpsBox.textContent = defaultFPS;
+    this.components.range.value = defaultFPS;
+  }
 }
 
 export default Preview;

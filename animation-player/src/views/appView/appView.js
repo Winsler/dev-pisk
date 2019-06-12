@@ -20,15 +20,14 @@ class AppView {
     };
   }
 
-  render(rect) {
-    window.tt = this.components.preview;
+  render(rect, options) {
     const { body } = document;
     this.components.header.render(body);
     body.appendChild(this.components.layot);
     this.components.tools.render(this.components.layot.querySelector('.tools'));
     this.components.frames.render(this.components.layot.querySelector('.frames'), rect);
     this.components.canvas.render(this.components.layot.querySelector('.canvas'), rect);
-    this.components.preview.render(this.components.layot.querySelector('.preview'), rect);
+    this.components.preview.render(this.components.layot.querySelector('.preview'), rect, options.defaultFPS);
   }
 }
 
