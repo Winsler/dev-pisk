@@ -26,6 +26,7 @@
     "autoprefixer": "^9.5.1",
     "babel-loader": "^8.0.6",
     "css-loader": "^2.1.1",
+    "csscomb": "^4.3.0",
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-loader": "^2.1.2",
