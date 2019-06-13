@@ -35,6 +35,10 @@ class Frame extends Canvas {
   strokeRect() {
     super.strokeRect(this.state.colors);
   }
+
+  setIndex(index) {
+    this.components.popup.counter.querySelector('i').textContent = index;
+  }
 }
 
 export default Frame;

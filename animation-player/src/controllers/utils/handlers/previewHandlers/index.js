@@ -1,8 +1,7 @@
-import { onRangeInput, onRangeChange, onFullScreenBtnClick } from './handlers';
+import { onRangeInput, onFullScreenBtnClick } from './handlers';
 
 const previewHandlers = {
-  changeRange: onRangeInput,
-  changeFPS: onRangeChange,
+  changeFPS: onRangeInput,
   fullScreenMode: onFullScreenBtnClick,
 };
 

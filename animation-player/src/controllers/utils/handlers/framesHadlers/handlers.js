@@ -1,7 +1,7 @@
 export function onClickFrameBtn() {
   const newRect = this.model.getRandomRect();
   this.state.rects.push(newRect);
-  this.view.components.frames.addFrame(newRect);
+  this.view.components.frames.addFrame(newRect, this.state.rects.length);
   this.view.components.canvas.strokeRect(newRect);
 }
 
@@ -31,21 +31,21 @@ export function onMouseOverFrame(mouseOverEvt) {
   }
 }
 
-export function onFrameClick(startAnimation, frameListClickEvt) {
+export function onFrameClick(frameListClickEvt) {
   if (frameListClickEvt.target.nodeName === 'CANVAS') {
     const curRect = frameListClickEvt.target.linkToFrameClass.state.colors;
     this.view.components.canvas.strokeRect(curRect);
-  } else if (frameListClickEvt.target.className === 'fas fa-copy') {
+  } else if (frameListClickEvt.target.classList.contains('fa-copy')) {
     let currNode = frameListClickEvt.target;
     while (currNode.nodeName !== 'LI') {
       currNode = currNode.parentNode;
     }
     const canvas = currNode.querySelector('canvas');
     const copyRect = canvas.linkToFrameClass.state.colors;
-    this.view.components.frames.addFrame(copyRect);
     this.state.rects.push(copyRect);
+    this.view.components.frames.addFrame(copyRect, this.state.rects.length);
     this.view.components.canvas.strokeRect(copyRect);
-  } else if (frameListClickEvt.target.className === 'fas fa-trash-alt') {
+  } else if (frameListClickEvt.target.classList.contains('fa-trash-alt')) {
     let currNode = frameListClickEvt.target;
     while (currNode.nodeName !== 'LI') {
       currNode = currNode.parentNode;
@@ -61,5 +61,6 @@ export function onFrameClick(startAnimation, frameListClickEvt) {
     }
     this.state.rects.splice(k, 1);
     currNode.remove();
+    this.view.components.frames.recalcIndexes();
   }
 }
