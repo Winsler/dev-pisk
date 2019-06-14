@@ -29,6 +29,10 @@ class AppView {
     this.components.canvas.render(this.components.layot.querySelector('.canvas'), rect);
     this.components.preview.render(this.components.layot.querySelector('.preview'), rect, options.defaultFPS);
   }
+
+  refreshCanvas(rect) {
+    this.components.canvas.strokeRect(rect);
+  }
 }
 
 export default AppView;

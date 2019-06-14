@@ -3,10 +3,12 @@ import Canvas from '../../Canvas/Canvas';
 
 class Frame extends Canvas {
   constructor(h, colors, options) {
-    super(html, options);
+    super(html, options, colors);
+    /*
     this.state = {
       colors,
     };
+    */
     this.components.popup = {
       counter: this.node.querySelector('.frame__tool--counter'),
       bucket: this.node.querySelector('.frame__tool--bucket'),
@@ -38,6 +40,10 @@ class Frame extends Canvas {
 
   setIndex(index) {
     this.components.popup.counter.querySelector('i').textContent = index;
+  }
+
+  refreshCanvas() {
+    this.strokeRect();
   }
 }
 

@@ -3,6 +3,11 @@ export function onClickFrameBtn() {
   this.state.rects.push(newRect);
   this.view.components.frames.addFrame(newRect, this.state.rects.length);
   this.view.components.canvas.strokeRect(newRect);
+
+  this.state.activeRect = newRect;
+  const frames = this.view.components.frames.node.querySelectorAll('canvas');
+  this.state.activeFrame = frames[frames.length - 1].linkToFrameClass;
+  this.setToolsState();
 }
 
 export function onMouseOverFrame(mouseOverEvt) {
@@ -34,6 +39,10 @@ export function onMouseOverFrame(mouseOverEvt) {
 export function onFrameClick(frameListClickEvt) {
   if (frameListClickEvt.target.nodeName === 'CANVAS') {
     const curRect = frameListClickEvt.target.linkToFrameClass.state.colors;
+    this.state.activeRect = curRect;
+    this.state.activeFrame = frameListClickEvt.target.linkToFrameClass;
+    this.setToolsState();
+    this.tools.setActiveRect(this.state.activeRect);
     this.view.components.canvas.strokeRect(curRect);
   } else if (frameListClickEvt.target.classList.contains('fa-copy')) {
     let currNode = frameListClickEvt.target;

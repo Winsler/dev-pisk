@@ -13,7 +13,6 @@ class FrameHolder extends NodeComponentView {
     this.options = {
       size,
     };
-    window.g = this;
   }
 
   addFrame(rect, index) {

@@ -1,8 +1,11 @@
 import NodeComponentView from '../NodeComponentView/index';
 
 class Canvas extends NodeComponentView {
-  constructor(html, options = { parts: 3, width: 0, height: 0 }) {
+  constructor(html, options = { parts: 3, width: 0, height: 0 }, colors) {
     super(html);
+    this.state = {
+      colors,
+    };
     this.components = {
       canvasNode: this.node.querySelector('canvas'),
     };
@@ -43,6 +46,10 @@ class Canvas extends NodeComponentView {
       width: parseFloat(canvasStyle.width),
       height: parseFloat(canvasStyle.height),
     };
+  }
+
+  refreshCanvas() {
+    this.strokeRect(this.state.colors);
   }
 }
 

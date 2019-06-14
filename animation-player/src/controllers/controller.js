@@ -1,16 +1,20 @@
 import startAnimation from './utils/animation/animation';
 import renderViewWithRandomRect from './utils/misc/index';
 import handlers from './utils/handlers/index';
+import ToolsController from './toolsController/index';
 
 class Controller {
   constructor(View, Model, size) {
     this.view = new View(size);
     this.model = new Model(size);
+    this.tools = new ToolsController(size, this.view);
     this.options = {
       defaultFPS: 5,
     };
     this.state = {
       rects: [],
+      activeRect: null,
+      activeFrame: null,
       timer: null,
       fps: this.options.defaultFPS,
     };
@@ -41,6 +45,14 @@ class Controller {
     }());
 
     startAnimationBinded();
+    const canvasSize = this.view.components.canvas.getCanvasSize();
+    this.tools.setCanvasSize(canvasSize);
+    this.tools.init();
+  }
+
+  setToolsState() {
+    this.tools.setActiveRect(this.state.activeRect);
+    this.tools.setActiveFrame(this.state.activeFrame);
   }
 }
 
