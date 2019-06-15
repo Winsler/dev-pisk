@@ -18,6 +18,8 @@ function startAnimation() {
   const controller = this;
   let timeOfLastRender = 0;
 
+  const canvas = document.body.querySelector('.preview canvas').linkToClass;
+
   function renderRect() {
     const { fps } = controller.state;
     const delay = 1000 / fps;
@@ -26,6 +28,7 @@ function startAnimation() {
       timeOfLastRender = now;
       const previewRect = controller.state.rects.getNext();
       if (previewRect) {
+        canvas.clear();
         controller.view.components.preview.strokeRect(previewRect);
       }
     }

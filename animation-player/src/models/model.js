@@ -19,10 +19,14 @@ class Model {
     // #6f6f6f #777776
     const length = this.options.parts;
     const rect = (new Array(length)).fill((new Array(length)).fill(0));
+    return rect.map(row => row.map(() => 'rgba(0, 0, 0, 0)'));
+
+    /*
     return rect.map((row, rowIndex) => row.map((col, colIndeX) => {
       const color = (rowIndex + colIndeX) % 2 === 0 ? '#6f6f6f' : '#777776';
       return color;
     }));
+    */
   }
 }
 

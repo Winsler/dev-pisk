@@ -19,6 +19,7 @@ class Controller {
       fps: this.options.defaultFPS,
       mainCanvasSize: null,
       view: this.view,
+      currColor: 'red',
     };
     this.tools = new ToolsController(size, this.view, this.state);
   }

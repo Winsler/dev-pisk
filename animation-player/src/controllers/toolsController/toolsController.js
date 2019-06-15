@@ -1,5 +1,6 @@
 import pen from './Pen/index';
 import Tool from './Tool/index';
+// import getHandlers from './handlers/index';
 
 class Tools {
   constructor(parts, view, globalState) {
@@ -18,10 +19,11 @@ class Tools {
     const canvas = document.body.querySelector('.canvas canvas');
     const penNode = palette.querySelector('[data-tool-type=pen]');
     this.tools.pen = new Tool(penNode,
-      [pen.getHandlers(canvas, pen.Tool.convetCoordsToCanvasRect.bind(this), this.globalState)]);
+      [pen.getHandlers(canvas, Tool.convetCoordsToCanvasRect.bind(this), this.globalState)]);
 
     const eraserNode = palette.querySelector('[data-tool-type=eraser]');
-    this.tools.eraser = new Tool(eraserNode);
+    this.tools.eraser = new Tool(eraserNode,
+      [pen.getHandlers(canvas, Tool.convetCoordsToCanvasRect.bind(this), this.globalState, true)]);
 
     palette.addEventListener('click', (toolsClickEvt) => {
       let currentNode = toolsClickEvt.target;

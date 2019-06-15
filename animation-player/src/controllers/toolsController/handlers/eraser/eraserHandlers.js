@@ -1,6 +1,6 @@
 import Handler from '../../Handler/index';
 
-function getMouseDownHandler(canvas, convetCoordsToCanvasRect, globalState, erase = false) {
+function getMouseDownHandler(canvas, convetCoordsToCanvasRect, globalState) {
   function onMouseDown(mouseDownEvt) {
     const canvasCoords = {
       x: canvas.getBoundingClientRect().left,
@@ -9,30 +9,32 @@ function getMouseDownHandler(canvas, convetCoordsToCanvasRect, globalState, eras
       yEnd: canvas.getBoundingClientRect().bottom,
     };
 
+    // вынести отрисовку в функцию для DRY
     const downCoords = {
       x: Math.min(Math.max(0, mouseDownEvt.clientX - canvasCoords.x), canvasCoords.xEnd),
       y: Math.min(Math.max(0, mouseDownEvt.clientY - canvasCoords.y), canvasCoords.yEnd),
     };
 
-    function stroke(coords) {
-      const [i, j] = convetCoordsToCanvasRect(coords,
-        globalState.mainCanvasSize, globalState.parts);
+    const TRANSPARENT_COLOR = 'rgba(0, 0, 0, 0)';
 
-      // eslint-disable-next-line no-param-reassign
-      globalState.activeRect[i][j] = erase ? 'rgba(0, 0, 0, 0)' : globalState.currColor;
-      globalState.view.refreshCanvas(globalState.activeRect);
-      globalState.activeFrame.refreshCanvas();
-    }
-
-    stroke(downCoords);
+    let [i, j] = convetCoordsToCanvasRect(downCoords,
+      globalState.mainCanvasSize, globalState.parts);
+    // eslint-disable-next-line no-param-reassign
+    globalState.activeRect[i][j] = TRANSPARENT_COLOR;
+    globalState.view.refreshCanvas(globalState.activeRect);
+    globalState.activeFrame.refreshCanvas();
 
     function onMoseMove(mouseMoveEvt) {
       const positionCoords = {
         x: Math.min(Math.max(0, mouseMoveEvt.clientX - canvasCoords.x), canvasCoords.xEnd),
         y: Math.min(Math.max(0, mouseMoveEvt.clientY - canvasCoords.y), canvasCoords.yEnd),
       };
-
-      stroke(positionCoords);
+      [i, j] = convetCoordsToCanvasRect(positionCoords,
+        globalState.mainCanvasSize, globalState.parts);
+      // eslint-disable-next-line no-param-reassign
+      globalState.activeRect[i][j] = TRANSPARENT_COLOR;
+      globalState.view.refreshCanvas(globalState.activeRect);
+      globalState.activeFrame.refreshCanvas();
     }
 
     const onMouseMoveHandler = new Handler(canvas, 'mousemove', onMoseMove);
