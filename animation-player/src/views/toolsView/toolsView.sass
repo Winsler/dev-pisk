@@ -2,28 +2,50 @@
     display: flex
     flex-direction: column
     justify-content: space-around
+    align-items: center
 
     width: 55px
-    height: 246px
+    // height: 246px
     margin: 0 0 1rem 1rem
-
-    box-shadow: 0 4px 4px rgba(0, 0, 0, .24), 0 0 4px rgba(0, 0, 0, .12)
-
+    background-color: #1D1D1D
 
 
 .palette__tool-wrapper
     z-index: 3
 
-    height: calc((100% - 1px) / 4)
 
-    -webkit-user-select: none
+    height: calc((100% - 1px) / 4)
+
+
+    -webkit-user-select: none
 
 
 .palette__tool
     display: flex
     align-items: center
 
-    height: 100%
+    height: 46px
+    width: 46px
+
+    background-color: #444444
+    background-image: url("./img/icons.png")
+
+    box-sizing: border-box
+    cursor: pointer
+
+    margin: 1px
+
+    &:hover
+      background-color: #7a7a7a
+
+    &--pen
+      background-position: -182px -92px
+
+    &--eraser
+      background-position: -46px -228px
+
+    &--active
+      border: 2px solid #FFD700
 
 
 .palette__img
@@ -33,5 +55,6 @@
 .palette__separate-line
     width: 100%
 
-    border-bottom: 1px solid  rgba(0, 0, 0, .12)
+
+    border-bottom: 1px solid  rgba(0, 0, 0, .12)
 

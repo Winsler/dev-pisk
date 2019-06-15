@@ -1,54 +1,67 @@
-class ToolsController {
-  constructor(parts, view) {
+import pen from './Pen/index';
+import Tool from './Tool/index';
+
+class Tools {
+  constructor(parts, view, globalState) {
+    this.tools = {};
     this.parts = parts;
-    this.size = null;
-    this.activeRect = null;
-    this.activeFrame = null;
     this.view = view;
+    this.globalState = globalState;
+    this.state = {
+      currentTool: null,
+    };
   }
 
   init() {
+    // чтобы не было селектора
+    const palette = document.body.querySelector('.palette');
     const canvas = document.body.querySelector('.canvas canvas');
-    const canvasCoords = {
-      x: canvas.getBoundingClientRect().left,
-      y: canvas.getBoundingClientRect().top,
-      xEnd: canvas.getBoundingClientRect().right,
-      yEnd: canvas.getBoundingClientRect().bottom,
-    };
+    const penNode = palette.querySelector('[data-tool-type=pen]');
+    this.tools.pen = new Tool(penNode,
+      [pen.getHandlers(canvas, pen.Tool.convetCoordsToCanvasRect.bind(this), this.globalState)]);
 
-    canvas.addEventListener('mousemove', (e) => {
-      const positionCoords = {
-        x: Math.min(Math.max(0, e.clientX - canvasCoords.x), canvasCoords.xEnd),
-        y: Math.min(Math.max(0, e.clientY - canvasCoords.y), canvasCoords.yEnd),
-      };
-      const [i, j] = this.convetCoordsToCanvasRect(positionCoords);
-      this.activeRect[i][j] = 'red';
-      this.view.refreshCanvas(this.activeRect);
-      this.activeFrame.refreshCanvas();
+    const eraserNode = palette.querySelector('[data-tool-type=eraser]');
+    this.tools.eraser = new Tool(eraserNode);
+
+    palette.addEventListener('click', (toolsClickEvt) => {
+      let currentNode = toolsClickEvt.target;
+      let tool = currentNode.getAttribute('data-tool-type');
+      while (!tool) {
+        currentNode = currentNode.parentNode;
+        tool = currentNode.getAttribute('data-tool-type');
+      }
+      this.swapTool(this.tools[tool]);
     });
   }
 
-  convetCoordsToCanvasRect({ x, y }) {
-    const partSizeX = this.canvasSize.width / this.parts;
-    const partX = Math.trunc(x / partSizeX);
-
-    const partSizeY = this.canvasSize.height / this.parts;
-    const partY = Math.trunc(y / partSizeY);
-
-    return [partX, partY];
+  setTool(tool) {
+    this.state.currentTool = tool;
+    this.state.currentTool.node.classList.add('palette__tool--active');
+    this.state.currentTool.addToolhandlers();
+    this.state.currentTool.cursors.forEach((cursor) => {
+      const currentCursor = cursor;
+      currentCursor.target.style.cursor = currentCursor.cursor;
+    });
   }
 
-  setCanvasSize(size) {
-    this.canvasSize = size;
+  removeTool() {
+    if (!this.state.currentTool) {
+      return;
+    }
+
+    this.state.currentTool.node.classList.remove('palette__tool--active');
+    this.state.currentTool.removeToolhandlers();
+    this.state.currentTool.cursors.forEach((cursor) => {
+      const currentCursor = cursor;
+      currentCursor.target.style.cursor = '';
+    });
+    this.state.currentTool = null;
   }
 
-  setActiveRect(rect) {
-    this.activeRect = rect;
-  }
-
-  setActiveFrame(frame) {
-    this.activeFrame = frame;
+  swapTool(newTool) {
+    this.removeTool();
+    this.setTool(newTool);
   }
 }
 
-export default ToolsController;
+export default Tools;

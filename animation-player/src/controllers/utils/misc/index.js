@@ -1,5 +1,5 @@
 function renderViewWithRandomRect() {
-  const rect = this.model.getRandomRect();
+  const rect = this.model.getBlackRect();
   this.state.rects.push(rect);
   this.view.render(rect, this.options);
   this.state.activeRect = rect;

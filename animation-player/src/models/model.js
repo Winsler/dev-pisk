@@ -14,6 +14,16 @@ class Model {
     const rect = (new Array(length)).fill((new Array(length)).fill(0));
     return rect.map(row => row.map(() => Model.getRandomHexColor()));
   }
+
+  getBlackRect() {
+    // #6f6f6f #777776
+    const length = this.options.parts;
+    const rect = (new Array(length)).fill((new Array(length)).fill(0));
+    return rect.map((row, rowIndex) => row.map((col, colIndeX) => {
+      const color = (rowIndex + colIndeX) % 2 === 0 ? '#6f6f6f' : '#777776';
+      return color;
+    }));
+  }
 }
 
 export default Model;

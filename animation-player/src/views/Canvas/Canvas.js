@@ -19,11 +19,23 @@ class Canvas extends NodeComponentView {
     return rect;
   }
 
+  /*
   resizeCanvas() {
     const canvasSize = this.getCanvasSize();
     const canvas = this.components.canvasNode;
     this.options.width = canvasSize.width;
     this.options.height = canvasSize.height;
+    canvas.width = this.options.width;
+    canvas.height = this.options.height;
+  }
+  */
+
+  resizeCanvas() {
+    const canvasSize = this.getCanvasSize();
+    const canvas = this.components.canvasNode;
+    this.options.width = canvasSize.width;
+    this.options.height = canvasSize.width;
+    this.components.canvasNode.style.height = `${this.options.height}px`;
     canvas.width = this.options.width;
     canvas.height = this.options.height;
   }

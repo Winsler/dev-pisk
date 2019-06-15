@@ -7,17 +7,20 @@ class Controller {
   constructor(View, Model, size) {
     this.view = new View(size);
     this.model = new Model(size);
-    this.tools = new ToolsController(size, this.view);
     this.options = {
       defaultFPS: 5,
     };
     this.state = {
+      parts: size,
       rects: [],
       activeRect: null,
       activeFrame: null,
       timer: null,
       fps: this.options.defaultFPS,
+      mainCanvasSize: null,
+      view: this.view,
     };
+    this.tools = new ToolsController(size, this.view, this.state);
   }
 
   init() {
@@ -46,13 +49,12 @@ class Controller {
 
     startAnimationBinded();
     const canvasSize = this.view.components.canvas.getCanvasSize();
-    this.tools.setCanvasSize(canvasSize);
+    this.state.mainCanvasSize = canvasSize;
     this.tools.init();
   }
 
   setToolsState() {
-    this.tools.setActiveRect(this.state.activeRect);
-    this.tools.setActiveFrame(this.state.activeFrame);
+    return this;
   }
 }
 
