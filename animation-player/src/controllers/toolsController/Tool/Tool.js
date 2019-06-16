@@ -37,15 +37,5 @@ class Tool {
     this.subtool = subtool;
     return this;
   }
-
-  static convetCoordsToCanvasRect({ x, y }, mainCanvasSize, parts) {
-    const partSizeX = mainCanvasSize.width / parts;
-    const partX = Math.trunc(x / partSizeX);
-
-    const partSizeY = mainCanvasSize.height / parts;
-    const partY = Math.trunc(y / partSizeY);
-
-    return [partX, partY];
-  }
 }
 export default Tool;

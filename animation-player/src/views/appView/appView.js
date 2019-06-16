@@ -1,4 +1,3 @@
-// TODO: унаследоваться от NodeComponentView
 import Header from '../headerView/index';
 import Tools from '../toolsView/index';
 import FrameHolder from '../frameHolderView/index';
@@ -32,6 +31,13 @@ class AppView {
 
   refreshCanvas(rect) {
     this.components.canvas.strokeRect(rect);
+  }
+
+  resize() {
+    const height = parseFloat(document.documentElement.clientHeight)
+    - parseFloat(getComputedStyle(this.components.header.node).height)
+    - parseFloat(getComputedStyle(document.querySelector('.layout')).paddingTop);
+    this.components.canvas.node.style.height = `${height}px`;
   }
 }
 

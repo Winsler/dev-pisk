@@ -4,34 +4,20 @@ import Canvas from '../../Canvas/Canvas';
 class Frame extends Canvas {
   constructor(h, colors, options) {
     super(html, options, colors);
-    /*
-    this.state = {
-      colors,
-    };
-    */
     this.components.popup = {
       counter: this.node.querySelector('.frame__tool--counter'),
       bucket: this.node.querySelector('.frame__tool--bucket'),
       dublicate: this.node.querySelector('.frame__tool--dublicate'),
     };
-  }
-
-  showPopup() {
-    const display = 'flex';
-    this.components.popup.counter.style.display = display;
-    this.components.popup.bucket.style.display = display;
-    this.components.popup.dublicate.style.display = display;
-  }
-
-  hidePopup() {
-    this.components.popup.counter.style.display = '';
-    this.components.popup.bucket.style.display = '';
-    this.components.popup.dublicate.style.display = '';
+    this.components.frame = this.node.querySelector('.frame');
   }
 
   render(parent) {
     super.render(parent, this.state.colors);
     this.components.canvasNode.linkToFrameClass = this;
+    const canvasStyle = getComputedStyle(this.components.frame);
+    this.node.style.width = canvasStyle.width;
+    this.node.style.height = canvasStyle.height;
   }
 
   strokeRect() {
@@ -44,6 +30,14 @@ class Frame extends Canvas {
 
   refreshCanvas() {
     this.strokeRect();
+  }
+
+  enable() {
+    this.components.frame.classList.add('frame--active');
+  }
+
+  disable() {
+    this.components.frame.classList.remove('frame--active');
   }
 }
 

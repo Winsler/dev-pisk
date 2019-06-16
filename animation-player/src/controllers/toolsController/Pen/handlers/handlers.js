@@ -1,6 +1,6 @@
 import Handler from '../../Handler/index';
 
-function getMouseDownHandler(canvas, convetCoordsToCanvasRect, globalState, erase = false) {
+function getMouseDownHandler({ canvas, convetCoordsToCanvasRect, globalState }, erase = false) {
   function onMouseDown(mouseDownEvt) {
     const canvasCoords = {
       x: canvas.getBoundingClientRect().left,
@@ -17,7 +17,6 @@ function getMouseDownHandler(canvas, convetCoordsToCanvasRect, globalState, eras
     function stroke(coords) {
       const [i, j] = convetCoordsToCanvasRect(coords,
         globalState.mainCanvasSize, globalState.parts);
-
       // eslint-disable-next-line no-param-reassign
       globalState.activeRect[i][j] = erase ? 'rgba(0, 0, 0, 0)' : globalState.currColor;
       globalState.view.refreshCanvas(globalState.activeRect);

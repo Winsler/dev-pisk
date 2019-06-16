@@ -15,6 +15,7 @@ class Canvas extends NodeComponentView {
       canvasNode: this.node.querySelector('canvas'),
     };
     this.options = options;
+    this.options.maxWidth = 600;
     this.node.querySelector('canvas').style.backgroundImage = `url(${pattern})`;
     this.components.canvasNode.linkToClass = this;
   }
@@ -26,22 +27,12 @@ class Canvas extends NodeComponentView {
     return rect;
   }
 
-  /*
   resizeCanvas() {
     const canvasSize = this.getCanvasSize();
     const canvas = this.components.canvasNode;
-    this.options.width = canvasSize.width;
-    this.options.height = canvasSize.height;
-    canvas.width = this.options.width;
-    canvas.height = this.options.height;
-  }
-  */
-
-  resizeCanvas() {
-    const canvasSize = this.getCanvasSize();
-    const canvas = this.components.canvasNode;
-    this.options.width = Math.floor(canvasSize.width);
-    this.options.height = Math.floor(canvasSize.width);
+    const width = Math.min(canvasSize.width, this.options.maxWidth);
+    this.options.width = Math.floor(width / this.options.parts) * this.options.parts;
+    this.options.height = this.options.width;
     this.components.canvasNode.style.height = `${this.options.height}px`;
     this.components.canvasNode.style.width = `${this.options.width}px`;
     canvas.width = this.options.width;

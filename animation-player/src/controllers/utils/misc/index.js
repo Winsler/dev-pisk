@@ -5,6 +5,7 @@ function renderViewWithRandomRect() {
   this.state.activeRect = rect;
   const frame = this.view.components.frames.node.querySelector('canvas');
   this.state.activeFrame = frame.linkToFrameClass;
+  this.state.activeFrame.enable();
   this.setToolsState();
 }
 

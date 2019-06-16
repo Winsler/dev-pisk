@@ -9,7 +9,6 @@ function getMouseDownHandler(canvas, convetCoordsToCanvasRect, globalState) {
       yEnd: canvas.getBoundingClientRect().bottom,
     };
 
-    // вынести отрисовку в функцию для DRY
     const downCoords = {
       x: Math.min(Math.max(0, mouseDownEvt.clientX - canvasCoords.x), canvasCoords.xEnd),
       y: Math.min(Math.max(0, mouseDownEvt.clientY - canvasCoords.y), canvasCoords.yEnd),

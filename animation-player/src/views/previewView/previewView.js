@@ -7,11 +7,12 @@ class Preview extends Canvas {
     this.components.range = this.node.querySelector('input[type=range]');
     this.components.fpsBox = this.node.querySelector('.fps');
     this.components.fullScreenBtn = this.node.querySelector('.full-screen-btn');
+    this.components.gifBtn = this.node.querySelector('.get-gif-btn');
   }
 
   render(parent, rect, defaultFPS) {
     super.render(parent, rect);
-    this.components.fpsBox.textContent = defaultFPS;
+    this.components.fpsBox.textContent = `${defaultFPS} FPS`;
     this.components.range.value = defaultFPS;
   }
 }

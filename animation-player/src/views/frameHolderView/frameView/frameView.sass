@@ -1,60 +1,73 @@
 .frame-wrapper
-    position: relative
+  $borderColor: #ffd700
+  position: relative
 
+
+  width: 6rem
+  height: 6rem
+  margin: 0 auto
+  min-width: 64px
+  min-height: 64px
+
+  .frame
+    $borderSize: 2px
+    width: 100%
+    height: 100%
     box-sizing: border-box
-    width: 5rem
-    height: 5rem
-    margin: 0 auto
+    border: $borderSize solid #999999
+    border-radius: 4px
 
+    =setPosition($pos1, $pos2)
+      #{$pos1}: $borderSize
+      #{$pos2}: $borderSize
 
-    .frame
-        width: 100%
-        height: 100%
+    &__tool
+      position: absolute
 
-        &__tool
-            position: absolute
+      display: flex
+      visibility: hidden
+      align-items: center
+      justify-content: center
 
-            display: flex
-            visibility: hidden
-            align-items: center
-            justify-content: center
+      width: 1.5rem
+      height: 1.5rem
 
-            width: 1.5rem
-            height: 1.5rem
+      color: #000
 
-            cursor: pointer
-            user-select: none
+      cursor: pointer
+      user-select: none
 
-            background-color: yellow
+      background-color: $borderColor
 
-        &__tool--counter
-            top: 0
-            left: 0
+    &__tool--counter
+      +setPosition(top, left)
+      visibility: visible
 
-        &__tool--bucket
-            top: 0
-            right: 0
+    &__tool--bucket
+      +setPosition(top, right)
 
-        &__tool--dublicate
-            right: 0
-            bottom: 0
+    &__tool--dublicate
+      +setPosition(bottom, right)
 
-        &__tool--moover
-            bottom: 0
-            left: 0
+    &__tool--moover
+      +setPosition(bottom, left)
 
-        .frame__tool-content
-        display: flex
-        align-items: center
-        justify-content: center
+    &__tool-content
+      display: flex
+      align-items: center
+      justify-content: center
 
-        width: 100%
-        height: 100%
+      width: 100%
+      height: 100%
 
-    &:hover
-        border: 2px solid yellow
+  &:hover .frame,
+  .frame--active
+    border: 2px solid $borderColor
 
-    &:hover  .frame__tool
-        visibility: visible
+  .frame--drop
+    border: 2px dashed $borderColor
+
+  &:hover  .frame__tool
+    visibility: visible
 
 

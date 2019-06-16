@@ -1,13 +1,14 @@
 import pen from './Pen/index';
 import Tool from './Tool/index';
-// import getHandlers from './handlers/index';
+import getHandlers from './handlers/index';
+// import handlers from '../utils/handlers';
 
 class Tools {
-  constructor(parts, view, globalState) {
+  constructor(mainController) {
+    this.mainController = mainController;
     this.tools = {};
-    this.parts = parts;
-    this.view = view;
-    this.globalState = globalState;
+    this.parts = this.mainController.state.parts;
+    this.view = this.mainController.view;
     this.state = {
       currentTool: null,
     };
@@ -18,12 +19,22 @@ class Tools {
     const palette = document.body.querySelector('.palette');
     const canvas = document.body.querySelector('.canvas canvas');
     const penNode = palette.querySelector('[data-tool-type=pen]');
+    const handlerOptions = {
+      canvas,
+      convetCoordsToCanvasRect:
+        this.mainController.model.constructor.convetCoordsToCanvasRect.bind(this),
+      globalState: this.mainController.state,
+    };
+
     this.tools.pen = new Tool(penNode,
-      [pen.getHandlers(canvas, Tool.convetCoordsToCanvasRect.bind(this), this.globalState)]);
+      [pen.getHandlers(handlerOptions)]);
 
     const eraserNode = palette.querySelector('[data-tool-type=eraser]');
     this.tools.eraser = new Tool(eraserNode,
-      [pen.getHandlers(canvas, Tool.convetCoordsToCanvasRect.bind(this), this.globalState, true)]);
+      [pen.getHandlers(handlerOptions, true)]);
+
+    const bucketNode = palette.querySelector('[data-tool-type=bucket]');
+    this.tools.bucket = new Tool(bucketNode, [getHandlers.bucket(handlerOptions)]);
 
     palette.addEventListener('click', (toolsClickEvt) => {
       let currentNode = toolsClickEvt.target;
@@ -32,7 +43,9 @@ class Tools {
         currentNode = currentNode.parentNode;
         tool = currentNode.getAttribute('data-tool-type');
       }
-      this.swapTool(this.tools[tool]);
+      if (tool !== 'colorPicker') {
+        this.swapTool(this.tools[tool]);
+      }
     });
   }
 

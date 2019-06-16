@@ -26,7 +26,7 @@ function startAnimation() {
     const now = Date.now();
     if (now - timeOfLastRender >= delay) {
       timeOfLastRender = now;
-      const previewRect = controller.state.rects.getNext();
+      const previewRect = controller.state.liveRects.getNext().querySelector('canvas').linkToFrameClass.state.colors;
       if (previewRect) {
         canvas.clear();
         controller.view.components.preview.strokeRect(previewRect);

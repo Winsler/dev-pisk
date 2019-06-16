@@ -23,6 +23,7 @@ class FrameHolder extends NodeComponentView {
     });
     frame.setIndex(index);
     const li = document.createElement('li');
+    li.setAttribute('draggable', true);
     this.components.frameList.appendChild(li);
     frame.render(li);
   }
@@ -38,6 +39,10 @@ class FrameHolder extends NodeComponentView {
       const currEl = el;
       currEl.querySelector('.frame__tool--counter i').textContent = index + 1;
     });
+  }
+
+  getItemsLiveList() {
+    return this.node.getElementsByTagName('li');
   }
 }
 

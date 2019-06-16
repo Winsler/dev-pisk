@@ -3,22 +3,10 @@
     flex-direction: column
     justify-content: space-around
     align-items: center
+    width: 46px
+    margin: 0 0.5rem
 
-    width: 55px
-    // height: 246px
-    margin: 0 0 1rem 1rem
     background-color: #1D1D1D
-
-
-.palette__tool-wrapper
-    z-index: 3
-
-
-    height: calc((100% - 1px) / 4)
-
-
-    -webkit-user-select: none
-
 
 .palette__tool
     display: flex
@@ -28,12 +16,12 @@
     width: 46px
 
     background-color: #444444
-    background-image: url("./img/icons.png")
+    background-image: url("../img/icons.png")
 
     box-sizing: border-box
     cursor: pointer
 
-    margin: 1px
+    margin: 1px 0
 
     &:hover
       background-color: #7a7a7a
@@ -44,17 +32,8 @@
     &--eraser
       background-position: -46px -228px
 
+    &--bucket
+      background-position: -228px -92px
+
     &--active
       border: 2px solid #FFD700
-
-
-.palette__img
-    margin: 0 33px 0 18px
-
-
-.palette__separate-line
-    width: 100%
-
-
-    border-bottom: 1px solid  rgba(0, 0, 0, .12)
-
