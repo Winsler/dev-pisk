@@ -33,6 +33,10 @@ class AppView {
     this.components.canvas.strokeRect(rect);
   }
 
+  refreshCanvasPath(corrds1, coords2, color) {
+    this.components.canvas.strokePath(corrds1, coords2, color);
+  }
+
   resize() {
     const height = parseFloat(document.documentElement.clientHeight)
     - parseFloat(getComputedStyle(this.components.header.node).height)

@@ -7,6 +7,7 @@ function renderViewWithRandomRect() {
   this.state.activeFrame = frame.linkToFrameClass;
   this.state.activeFrame.enable();
   this.setToolsState();
+  this.view.components.canvas.state.colors = rect;
 }
 
 export default renderViewWithRandomRect;

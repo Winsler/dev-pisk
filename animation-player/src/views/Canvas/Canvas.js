@@ -53,6 +53,37 @@ class Canvas extends NodeComponentView {
     }
   }
 
+  strokePath(startCoords, endCoords, color) {
+    const startPath = startCoords.slice();
+    const endPath = endCoords.slice();
+    const rect = this.state.colors;
+
+    // eslint-disable-next-line no-param-reassign
+    rect[startPath[0]][startPath[1]] = color;
+
+    function isEqual(coords1, coords2) {
+      return coords1.every((el, elIndex) => el === coords2[elIndex]);
+    }
+
+    let counter = 0;
+    while (!isEqual(startPath, endPath)) {
+      const direction = counter % 2 === 0 ? 1 : 0;
+      if ((startPath[0] > endPath[0]) && direction) {
+        startPath[0] -= 1;
+      } else if (((startPath[0] < endPath[0]) && direction)) {
+        startPath[0] += 1;
+      } else if (((startPath[1] > endPath[1]) && !direction)) {
+        startPath[1] -= 1;
+      } else if (((startPath[1] < endPath[1]) && !direction)) {
+        startPath[1] += 1;
+      }
+      counter += 1;
+      // eslint-disable-next-line no-param-reassign
+      rect[startPath[0]][startPath[1]] = color;
+    }
+    this.strokeRect(rect);
+  }
+
   getCanvasSize() {
     const canvasStyle = window.getComputedStyle(this.components.canvasNode);
     return {
@@ -63,6 +94,10 @@ class Canvas extends NodeComponentView {
 
   refreshCanvas() {
     this.strokeRect(this.state.colors);
+  }
+
+  refreshCanvasPath(start, end, color) {
+    this.strokePath(start, end, color);
   }
 
   clear() {
