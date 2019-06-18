@@ -11,6 +11,7 @@ export function onClickFrameBtn() {
   }
   this.state.activeFrame = frames[frames.length - 1].linkToFrameClass;
   this.state.activeFrame.enable();
+  this.view.components.canvas.state.colors = newRect;
 }
 
 export function onMouseOverFrame(mouseOverEvt) {
@@ -49,11 +50,13 @@ export function onFrameClick(frameListClickEvt) {
     this.state.activeFrame = frameListClickEvt.target.linkToFrameClass;
     this.state.activeFrame.enable();
     this.view.components.canvas.strokeRect(curRect);
+    this.view.components.canvas.state.colors = curRect;
   } else if (frameListClickEvt.target.classList.contains('fa-copy')) {
     let currNode = frameListClickEvt.target;
     while (currNode.nodeName !== 'LI') {
       currNode = currNode.parentNode;
     }
+    this.state.activeFrame.disable();
     const canvas = currNode.querySelector('canvas');
     const copyRect = JSON.parse(JSON.stringify(canvas.linkToFrameClass.state.colors));
     this.state.rects.push(copyRect);
@@ -61,8 +64,10 @@ export function onFrameClick(frameListClickEvt) {
     this.view.components.canvas.strokeRect(copyRect);
 
     this.state.activeRect = copyRect;
+    this.view.components.canvas.state.colors = copyRect;
     const frames = this.view.components.frames.node.querySelectorAll('canvas');
     this.state.activeFrame = frames[frames.length - 1].linkToFrameClass;
+    this.state.activeFrame.enable();
   } else if (frameListClickEvt.target.classList.contains('fa-trash-alt')) {
     let currNode = frameListClickEvt.target;
     while (currNode.nodeName !== 'LI') {

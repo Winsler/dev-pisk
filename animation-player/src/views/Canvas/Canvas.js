@@ -114,6 +114,20 @@ class Canvas extends NodeComponentView {
       Math.round(size.width / this.options.parts * yPos),
       Math.round(size.height / this.options.parts), Math.round(size.width / this.options.parts));
   }
+
+  getRelativeCoords(eventCoords) {
+    const canvasCoords = {
+      x: parseFloat(this.components.canvasNode.getBoundingClientRect().left),
+      y: parseFloat(this.components.canvasNode.getBoundingClientRect().top),
+    };
+
+    const relevantCoords = {
+      x: eventCoords.x - canvasCoords.x,
+      y: eventCoords.y - canvasCoords.y,
+    };
+
+    return relevantCoords;
+  }
 }
 
 export default Canvas;

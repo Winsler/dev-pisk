@@ -26,6 +26,7 @@ class Tools {
       globalState: this.mainController.state,
     };
 
+    // Тут и далее повторяется - вынести в функцию
     this.tools.pen = new Tool(penNode,
       [pen.getHandlers(handlerOptions)]);
 
@@ -35,6 +36,10 @@ class Tools {
 
     const bucketNode = palette.querySelector('[data-tool-type=bucket]');
     this.tools.bucket = new Tool(bucketNode, [getHandlers.bucket(handlerOptions)]);
+
+    const rectangleNode = palette.querySelector('[data-tool-type=rectangle]');
+    this.tools.rectangle = new Tool(rectangleNode, [getHandlers.rectangle(handlerOptions)]);
+
 
     palette.addEventListener('click', (toolsClickEvt) => {
       let currentNode = toolsClickEvt.target;

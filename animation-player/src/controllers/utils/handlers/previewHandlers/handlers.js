@@ -1,8 +1,3 @@
-// import Worker from '../../../../assets/gif.worker';
-import GIF from '../../../../assets/gif';
-
-// const GIF = require('../../../../assets/gif');
-
 export function onRangeInput(inputEvt) {
   const fps = inputEvt.target.value;
   this.view.components.preview.components.fpsBox.textContent = `${fps} FPS`;
@@ -37,7 +32,7 @@ export function onGifBtnClick() {
     quality: 1,
     height: size,
     width: size,
-    transparent: '#ffffff',
+    transparent: '#fff',
   });
 
   function clear(ctx) {
@@ -48,7 +43,12 @@ export function onGifBtnClick() {
     clear(ctx);
     for (let i = 0; i < parts; i += 1) {
       for (let j = 0; j < parts; j += 1) {
-        ctx.fillStyle = rect[i % parts][[j % parts]];
+        let color = rect[i % parts][[j % parts]];
+        if ((color === '#000') || (color === '#000000')) {
+          color = '#111111';
+          window.console.log('swapped');
+        }
+        ctx.fillStyle = color;
         ctx.fillRect(Math.round(size / parts * i),
           Math.round(size / parts * j),
           Math.round(size / parts), Math.round(size / parts));
@@ -56,10 +56,13 @@ export function onGifBtnClick() {
     }
   }
 
+  const delay = 1000 / this.state.fps;
+
   slides.forEach((slide) => {
+    window.console.log(slide);
     const [ctx, canvas] = getCTX();
     strokeRect(ctx, slide);
-    gif.addFrame(canvas, { delay: 200 });
+    gif.addFrame(canvas, { delay, copy: true });
   });
 
   function saveData(blob, fileName) {

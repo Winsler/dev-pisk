@@ -39,14 +39,10 @@ function getMouseDownHandler({ canvas, convetCoordsToCanvasRect, globalState }, 
     let previousCoords = JSON.parse(JSON.stringify(downCoords));
 
     function onMoseMove(mouseMoveEvt) {
-      // eslint-disable-next-line no-debugger
       const positionCoords = {
         x: Math.min(Math.max(0, mouseMoveEvt.clientX - canvasCoords.x), canvasCoords.xEnd),
         y: Math.min(Math.max(0, mouseMoveEvt.clientY - canvasCoords.y), canvasCoords.yEnd),
       };
-
-      // eslint-disable-next-line no-debugger
-      if (previousCoords.x !== positionCoords.x || previousCoords.y !== positionCoords.y) debugger;
 
       stroke(previousCoords, positionCoords);
       previousCoords = JSON.parse(JSON.stringify(positionCoords));
@@ -60,8 +56,16 @@ function getMouseDownHandler({ canvas, convetCoordsToCanvasRect, globalState }, 
 
     const onMouseUpHandler = new Handler(canvas, 'mouseup', onMouseUp, { once: true });
 
+    function onMouseOut() {
+      onMouseMoveHandler.remove();
+      onMouseUpHandler.remove();
+    }
+
+    const onMouseOutHandler = new Handler(canvas, 'mouseout', onMouseOut, { once: true });
+
     onMouseMoveHandler.add();
     onMouseUpHandler.add();
+    onMouseOutHandler.add();
   }
 
   const onMouseDownHandler = new Handler(canvas, 'mousedown', onMouseDown);
