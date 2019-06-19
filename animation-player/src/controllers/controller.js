@@ -2,6 +2,7 @@ import startAnimation from './utils/animation/animation';
 import renderViewWithRandomRect from './utils/misc/index';
 import handlers from './utils/handlers/index';
 import ToolsController from './toolsController/index';
+import List from '../utils/List/index';
 
 class Controller {
   constructor(View, Model, size) {
@@ -21,6 +22,7 @@ class Controller {
       view: this.view,
       currColor: '#000',
       liveRects: this.view.components.frames.getItemsLiveList(),
+      history: new List(),
     };
     this.tools = new ToolsController(this);
   }
@@ -63,6 +65,30 @@ class Controller {
     this.state.mainCanvasSize = canvasSize;
     this.tools.init();
     this.view.resize();
+
+    this.view.components.canvas.components.canvasNode.addEventListener('mousedown', () => {
+      this.state.history.append(JSON.parse(JSON.stringify(this.state.activeRect)));
+    });
+
+    // TODO убрат ьмагиеские значения
+    document.body.addEventListener('keydown', (e) => {
+      if (e.keyCode === 27) {
+        try {
+          this.tools.state.currentTool.remove();
+        } catch (error) {
+          window.console.log(error);
+        }
+      } else if (e.keyCode === 90 && e.ctrlKey && this.tools.state.currentTool) {
+        const newRect = this.state.history.pop();
+        if (newRect) {
+          this.view.components.canvas.state.colors = newRect;
+          this.view.components.canvas.strokeRect(newRect);
+          this.state.activeRect = newRect;
+          this.state.activeFrame.state.colors = newRect;
+          this.state.activeFrame.strokeRect(newRect);
+        }
+      }
+    });
   }
 
   setToolsState() {

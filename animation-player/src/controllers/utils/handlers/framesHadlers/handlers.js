@@ -51,6 +51,7 @@ export function onFrameClick(frameListClickEvt) {
     this.state.activeFrame.enable();
     this.view.components.canvas.strokeRect(curRect);
     this.view.components.canvas.state.colors = curRect;
+    this.state.history.clearList();
   } else if (frameListClickEvt.target.classList.contains('fa-copy')) {
     let currNode = frameListClickEvt.target;
     while (currNode.nodeName !== 'LI') {
@@ -59,7 +60,7 @@ export function onFrameClick(frameListClickEvt) {
     this.state.activeFrame.disable();
     const canvas = currNode.querySelector('canvas');
     const copyRect = JSON.parse(JSON.stringify(canvas.linkToFrameClass.state.colors));
-    this.state.rects.push(copyRect);
+    // this.state.rects.push(copyRect);
     this.view.components.frames.addFrame(copyRect, this.state.rects.length);
     this.view.components.canvas.strokeRect(copyRect);
 
