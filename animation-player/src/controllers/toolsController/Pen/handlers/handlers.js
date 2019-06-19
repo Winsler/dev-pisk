@@ -26,12 +26,8 @@ function getMouseDownHandler({ canvas, convetCoordsToCanvasRect, globalState }, 
       }
 
       const color = erase ? 'rgba(0, 0, 0, 0)' : globalState.currColor;
-      // eslint-disable-next-line no-param-reassign
-      // globalState.activeRect[i][j] = erase ? 'rgba(0, 0, 0, 0)' : globalState.currColor;
-      // globalState.view.refreshCanvas(globalState.activeRect);
       globalState.view.refreshCanvasPath([i, j], [i2, j2], color);
       globalState.activeFrame.refreshCanvas();
-      // globalState.activeR.refreshCanvasPath([i, j], [i2, j2], globalState.currColor);
     }
 
     stroke(downCoords, downCoords);

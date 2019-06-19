@@ -82,10 +82,10 @@ class Controller {
         const newRect = this.state.history.pop();
         if (newRect) {
           this.view.components.canvas.state.colors = newRect;
-          this.view.components.canvas.strokeRect(newRect);
           this.state.activeRect = newRect;
           this.state.activeFrame.state.colors = newRect;
-          this.state.activeFrame.strokeRect(newRect);
+          this.view.components.canvas.refreshCanvas(newRect);
+          this.state.activeFrame.refreshCanvas(newRect);
         }
       }
     });

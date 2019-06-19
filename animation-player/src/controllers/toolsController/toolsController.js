@@ -15,7 +15,7 @@ class Tools {
   }
 
   init() {
-    // чтобы не было селектора
+    // TODO чтобы не было селектора
     const palette = document.body.querySelector('.palette');
     const canvas = document.body.querySelector('.canvas canvas');
     const penNode = palette.querySelector('[data-tool-type=pen]');
@@ -40,6 +40,9 @@ class Tools {
     const rectangleNode = palette.querySelector('[data-tool-type=rectangle]');
     this.tools.rectangle = new Tool(rectangleNode, [getHandlers.rectangle(handlerOptions)]);
 
+    const sameColorPainterNode = palette.querySelector('[data-tool-type=paintSameColor]');
+    this.tools.paintSameColor = new Tool(sameColorPainterNode,
+      [getHandlers.paintSameColor(handlerOptions)]);
 
     palette.addEventListener('click', (toolsClickEvt) => {
       let currentNode = toolsClickEvt.target;
