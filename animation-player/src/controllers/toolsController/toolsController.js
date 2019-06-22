@@ -48,6 +48,10 @@ class Tools {
     this.tools.mirrorPen = new Tool(mirrorPenNode,
       [getHandlers.mirrorPen(handlerOptions)]);
 
+    const pipetteNode = palette.querySelector('[data-tool-type=pipette]');
+    this.tools.pipette = new Tool(pipetteNode,
+      [getHandlers.pipette(handlerOptions)]);
+
     palette.addEventListener('click', (toolsClickEvt) => {
       let currentNode = toolsClickEvt.target;
       let tool = currentNode.getAttribute('data-tool-type');
