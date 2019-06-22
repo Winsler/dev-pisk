@@ -44,6 +44,10 @@ class Tools {
     this.tools.paintSameColor = new Tool(sameColorPainterNode,
       [getHandlers.paintSameColor(handlerOptions)]);
 
+    const mirrorPenNode = palette.querySelector('[data-tool-type=mirrorPen]');
+    this.tools.mirrorPen = new Tool(mirrorPenNode,
+      [getHandlers.mirrorPen(handlerOptions)]);
+
     palette.addEventListener('click', (toolsClickEvt) => {
       let currentNode = toolsClickEvt.target;
       let tool = currentNode.getAttribute('data-tool-type');
@@ -57,6 +61,7 @@ class Tools {
     });
   }
 
+  // TODO вынести в класс тулы ???
   setTool(tool) {
     this.state.currentTool = tool;
     this.state.currentTool.node.classList.add('palette__tool--active');
