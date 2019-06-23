@@ -2,13 +2,13 @@ import NodeComponentView from '../NodeComponentView/index';
 import pattern from './img/canvas-pattern.png';
 
 class Canvas extends NodeComponentView {
-  constructor(html, options = { parts: 3, width: 0, height: 0 }, colors) {
+  constructor(html, options = { parts: 3, width: 0, height: 0 }, imageMatrix) {
     super(html);
     this.state = {
-      colors,
+      imageMatrix,
       layout: {
-        defaultLayout: colors ? JSON.parse(JSON.stringify(colors)) : [[]],
-        layouts: [colors],
+        defaultLayout: imageMatrix ? JSON.parse(JSON.stringify(imageMatrix)) : [[]],
+        layouts: [imageMatrix],
       },
     };
     this.components = {
@@ -23,7 +23,7 @@ class Canvas extends NodeComponentView {
   render(parent, rect) {
     super.render(parent);
     this.resizeCanvas();
-    this.strokeRect(rect);
+    this.paintImage(rect);
     return rect;
   }
 
@@ -39,7 +39,7 @@ class Canvas extends NodeComponentView {
     canvas.height = this.options.height;
   }
 
-  strokeRect(rect) {
+  paintImage(rect) {
     this.clear();
     const ctx = this.components.canvasNode.getContext('2d');
     const { parts } = this.options;
@@ -56,7 +56,7 @@ class Canvas extends NodeComponentView {
   strokePath(startCoords, endCoords, color) {
     const startPath = startCoords.slice();
     const endPath = endCoords.slice();
-    const rect = this.state.colors;
+    const rect = this.state.imageMatrix;
 
     // eslint-disable-next-line no-param-reassign
     rect[startPath[0]][startPath[1]] = color;
@@ -81,7 +81,7 @@ class Canvas extends NodeComponentView {
       // eslint-disable-next-line no-param-reassign
       rect[startPath[0]][startPath[1]] = color;
     }
-    this.strokeRect(rect);
+    this.paintImage(rect);
   }
 
   getCanvasSize() {
@@ -92,11 +92,11 @@ class Canvas extends NodeComponentView {
     };
   }
 
-  refreshCanvas() {
-    this.strokeRect(this.state.colors);
+  paintState() {
+    this.paintImage(this.state.imageMatrix);
   }
 
-  refreshCanvasPath(start, end, color) {
+  paintPath(start, end, color) {
     this.strokePath(start, end, color);
   }
 
@@ -127,6 +127,10 @@ class Canvas extends NodeComponentView {
     };
 
     return relevantCoords;
+  }
+
+  setImage(image) {
+    this.state.imageMatrix = image;
   }
 }
 

@@ -29,11 +29,11 @@ class AppView {
     this.components.preview.render(this.components.layot.querySelector('.preview'), rect, options.defaultFPS);
   }
 
-  refreshCanvas(rect) {
-    this.components.canvas.strokeRect(rect);
+  paintImage(image) {
+    this.components.canvas.paintImage(image);
   }
 
-  refreshCanvasPath(corrds1, coords2, color) {
+  paintPath(corrds1, coords2, color) {
     this.components.canvas.strokePath(corrds1, coords2, color);
   }
 

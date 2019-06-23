@@ -51,8 +51,8 @@ function getBucketHandler({ canvas, convetCoordsToCanvasRect, globalState }) {
       return paintArea(nextArea);
     }
     paintArea([[i, j]]);
-    globalState.view.refreshCanvas(globalState.activeRect);
-    globalState.activeFrame.refreshCanvas();
+    globalState.view.paintImage(globalState.activeRect);
+    globalState.activeFrame.paintState();
   }
 
   const bucketHandler = new Handler(canvas, 'click', onClick);

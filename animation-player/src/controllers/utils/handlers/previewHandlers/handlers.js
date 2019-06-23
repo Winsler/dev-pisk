@@ -39,7 +39,7 @@ export function onGifBtnClick() {
     ctx.clearRect(0, 0, size, size);
   }
 
-  function strokeRect(ctx, rect) {
+  function paintIamge(ctx, rect) {
     clear(ctx);
     for (let i = 0; i < parts; i += 1) {
       for (let j = 0; j < parts; j += 1) {
@@ -61,7 +61,7 @@ export function onGifBtnClick() {
   slides.forEach((slide) => {
     window.console.log(slide);
     const [ctx, canvas] = getCTX();
-    strokeRect(ctx, slide);
+    paintIamge(ctx, slide);
     gif.addFrame(canvas, { delay, copy: true });
   });
 

@@ -21,8 +21,10 @@ class Controller {
       mainCanvasSize: null,
       view: this.view,
       currColor: '#000',
+      subCurrColor: '#000',
       liveRects: this.view.components.frames.getItemsLiveList(),
       history: new List(),
+      shortcuts: {},
     };
     this.tools = new ToolsController(this);
   }
@@ -43,9 +45,13 @@ class Controller {
     this.view.components.preview.components.fullScreenBtn.addEventListener('click', handlers.preview.fullScreenMode.bind(this));
     this.view.components.preview.components.gifBtn.addEventListener('click', handlers.preview.getGif.bind(this));
 
-    const { colorPicker } = this.view.components.tools.components;
-    colorPicker.addEventListener('input', () => {
-      this.state.currColor = colorPicker.value;
+    const { mainColorPicker, subColorPicker } = this.view.components.tools.components;
+    mainColorPicker.addEventListener('input', () => {
+      this.state.currColor = mainColorPicker.value;
+    });
+
+    subColorPicker.addEventListener('input', () => {
+      this.state.subCurrColor = subColorPicker.value;
     });
 
     this.state.liveRects.getNext = (function getNextWrapepr() {
@@ -67,26 +73,42 @@ class Controller {
     this.view.resize();
 
     this.view.components.canvas.components.canvasNode.addEventListener('mousedown', () => {
+      if (!this.state.history.isEmpty()) {
+        this.state.history.append(JSON.parse(JSON.stringify(this.state.activeRect)));
+      }
+    });
+
+    this.view.components.canvas.components.canvasNode.addEventListener('mouseup', () => {
       this.state.history.append(JSON.parse(JSON.stringify(this.state.activeRect)));
     });
 
+    const KEYS = {
+      27: 'ESC',
+      90: 'Z',
+      89: 'Y',
+    };
+
+    const paintFromHist = (hist) => {
+      if (hist) {
+        const rect = JSON.parse(JSON.stringify(hist));
+        this.view.components.canvas.state.imageMatrix = rect;
+        this.state.activeRect = rect;
+        this.state.activeFrame.state.imageMatrix = rect;
+        this.view.components.canvas.paintState(rect);
+        this.state.activeFrame.paintState(rect);
+      }
+    };
+
     // TODO убрат ьмагиеские значения
     document.body.addEventListener('keydown', (e) => {
-      if (e.keyCode === 27) {
-        try {
-          this.tools.state.currentTool.remove();
-        } catch (error) {
-          window.console.log(error);
-        }
-      } else if (e.keyCode === 90 && e.ctrlKey && this.tools.state.currentTool) {
-        const newRect = this.state.history.pop();
-        if (newRect) {
-          this.view.components.canvas.state.colors = newRect;
-          this.state.activeRect = newRect;
-          this.state.activeFrame.state.colors = newRect;
-          this.view.components.canvas.refreshCanvas(newRect);
-          this.state.activeFrame.refreshCanvas(newRect);
-        }
+      if (KEYS[e.keyCode] === 'ESC' && this.tools.state.currentTool) {
+        this.tools.state.currentTool.remove();
+      } else if (KEYS[e.keyCode] === 'Z' && e.ctrlKey) {
+        const newRect = this.state.history.previous();
+        paintFromHist(newRect);
+      } else if (KEYS[e.keyCode] === 'Y' && e.ctrlKey) {
+        const newRect = this.state.history.next();
+        paintFromHist(newRect);
       }
     });
   }

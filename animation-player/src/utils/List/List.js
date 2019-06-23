@@ -2,41 +2,51 @@ import ListItem from './ListItem';
 
 class List {
   constructor() {
-    this.head = null;
-    this.tail = null;
+    this.state = null;
   }
 
   append(rect) {
     const item = new ListItem(rect);
-    if (!this.head) {
-      this.head = item;
-      this.tail = item;
-      return item.value;
+    if (this.state) {
+      if (this.state.next) {
+        this.state.next.clearLinks();
+      }
+      this.state.next = item;
+      item.previous = this.state;
     }
-    item.previous = this.tail;
-    this.tail.next = item;
-    this.tail = item;
-    return item.value;
+    this.state = item;
   }
 
-  pop() {
-    if (!this.head) {
-      return null;
+  previous() {
+    if (!this.state) {
+      return undefined;
     }
-    const item = this.tail;
-    if (this.tail === this.head) {
-      this.clearList();
+    const item = this.state.previous;
+    if (item) {
+      this.state = item;
       return item.value;
     }
-    this.tail = this.tail.previous;
-    this.tail.next = null;
-    item.clearLinks();
-    return item.value;
+    return undefined;
+  }
+
+  next() {
+    if (!this.state) {
+      return undefined;
+    }
+    const item = this.state.next;
+    if (item) {
+      this.state = item;
+      return item.value;
+    }
+    return undefined;
   }
 
   clearList() {
-    this.head = null;
-    this.tail = null;
+    this.state = null;
+  }
+
+  isEmpty() {
+    return !!this.state;
   }
 }
 

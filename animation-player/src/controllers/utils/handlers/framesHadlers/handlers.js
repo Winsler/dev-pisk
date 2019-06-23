@@ -1,8 +1,7 @@
 export function onClickFrameBtn() {
   const newRect = this.model.getBlackRect();
-  this.state.rects.push(newRect);
-  this.view.components.frames.addFrame(newRect, this.state.rects.length);
-  this.view.components.canvas.strokeRect(newRect);
+  this.view.components.frames.addFrame(newRect, this.state.liveRects.length + 1);
+  this.view.components.canvas.paintImage(newRect);
 
   this.state.activeRect = newRect;
   const frames = this.view.components.frames.node.querySelectorAll('canvas');
@@ -11,46 +10,21 @@ export function onClickFrameBtn() {
   }
   this.state.activeFrame = frames[frames.length - 1].linkToFrameClass;
   this.state.activeFrame.enable();
-  this.view.components.canvas.state.colors = newRect;
-}
-
-export function onMouseOverFrame(mouseOverEvt) {
-  function onMouseOut(mouseOutEvt) {
-    if (mouseOutEvt.relatedTarget.className.slice(0, 11) === 'frame__tool') return;
-    mouseOverEvt.target.linkToFrameClass.hidePopup();
-    mouseOverEvt.target.removeEventListener('mouseout', onMouseOut);
-  }
-  if (mouseOverEvt.target.nodeName === 'CANVAS') {
-    let currNode = mouseOverEvt.target;
-    while (currNode.nodeName !== 'LI') {
-      currNode = currNode.parentNode;
-    }
-    const childs = currNode.parentNode.children;
-    let k = 0;
-    const len = childs.length;
-    let currChild = childs[k];
-    while (k < len && currChild !== currNode) {
-      k += 1;
-      currChild = childs[k];
-    }
-    currNode.querySelector('.frame__tool--counter').textContent = k + 1;
-    mouseOverEvt.target.linkToFrameClass.showPopup();
-
-    mouseOverEvt.target.addEventListener('mouseout', onMouseOut);
-  }
+  this.view.components.canvas.state.imageMatrix = newRect;
+  this.state.history.clearList();
 }
 
 export function onFrameClick(frameListClickEvt) {
   if (frameListClickEvt.target.nodeName === 'CANVAS') {
-    const curRect = frameListClickEvt.target.linkToFrameClass.state.colors;
+    const curRect = frameListClickEvt.target.linkToFrameClass.state.imageMatrix;
     this.state.activeRect = curRect;
     if (this.state.activeFrame) {
       this.state.activeFrame.disable();
     }
     this.state.activeFrame = frameListClickEvt.target.linkToFrameClass;
     this.state.activeFrame.enable();
-    this.view.components.canvas.strokeRect(curRect);
-    this.view.components.canvas.state.colors = curRect;
+    this.view.components.canvas.paintImage(curRect);
+    this.view.components.canvas.state.imageMatrix = curRect;
     this.state.history.clearList();
   } else if (frameListClickEvt.target.classList.contains('fa-copy')) {
     let currNode = frameListClickEvt.target;
@@ -59,13 +33,13 @@ export function onFrameClick(frameListClickEvt) {
     }
     this.state.activeFrame.disable();
     const canvas = currNode.querySelector('canvas');
-    const copyRect = JSON.parse(JSON.stringify(canvas.linkToFrameClass.state.colors));
+    const copyRect = JSON.parse(JSON.stringify(canvas.linkToFrameClass.state.imageMatrix));
     // this.state.rects.push(copyRect);
     this.view.components.frames.addFrame(copyRect, this.state.rects.length);
-    this.view.components.canvas.strokeRect(copyRect);
+    this.view.components.canvas.paintImage(copyRect);
 
     this.state.activeRect = copyRect;
-    this.view.components.canvas.state.colors = copyRect;
+    this.view.components.canvas.state.imageMatrix = copyRect;
     const frames = this.view.components.frames.node.querySelectorAll('canvas');
     this.state.activeFrame = frames[frames.length - 1].linkToFrameClass;
     this.state.activeFrame.enable();

@@ -47,22 +47,22 @@ function getMirrorPenHandler({ canvas, convetCoordsToCanvasRect, globalState }) 
       }
 
       const color = globalState.currColor;
-      globalState.view.refreshCanvasPath([i, j], [i2, j2], color);
+      globalState.view.paintPath([i, j], [i2, j2], color);
       if (mode === 'vertical') {
-        globalState.view.refreshCanvasPath([verticalMirrorI, verticalMirrorJ],
+        globalState.view.paintPath([verticalMirrorI, verticalMirrorJ],
           [verticalMirrorI2, verticalMirrorJ2], color);
       } else if (mode === 'horizontal') {
-        globalState.view.refreshCanvasPath([horizontalMirrorI, horizontalMirrorJ],
+        globalState.view.paintPath([horizontalMirrorI, horizontalMirrorJ],
           [horizontalMirrorI2, horizontalMirrorJ2], color);
       } else {
-        globalState.view.refreshCanvasPath([verticalMirrorI, verticalMirrorJ],
+        globalState.view.paintPath([verticalMirrorI, verticalMirrorJ],
           [verticalMirrorI2, verticalMirrorJ2], color);
-        globalState.view.refreshCanvasPath([horizontalMirrorI, horizontalMirrorJ],
+        globalState.view.paintPath([horizontalMirrorI, horizontalMirrorJ],
           [horizontalMirrorI2, horizontalMirrorJ2], color);
-        globalState.view.refreshCanvasPath([mirrorI, mirrorJ],
+        globalState.view.paintPath([mirrorI, mirrorJ],
           [mirrorI2, mirrorJ2], color);
       }
-      globalState.activeFrame.refreshCanvas();
+      globalState.activeFrame.paintState();
     }
 
     const downMode = getMode(mouseDownEvt);

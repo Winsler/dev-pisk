@@ -21,8 +21,8 @@ function getSameColorPainterHandler({ canvas, convetCoordsToCanvasRect, globalSt
         }
       }
     }
-    globalState.view.refreshCanvas(globalState.activeRect);
-    globalState.activeFrame.refreshCanvas();
+    globalState.view.paintImage(globalState.activeRect);
+    globalState.activeFrame.paintState();
   }
 
   const onClickHandler = new Handler(canvas, 'click', onClick);

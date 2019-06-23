@@ -1,4 +1,4 @@
-import onMouseDownHandler from './handlers';
+import onMouseDownHandler from './pen';
 
 const getPenHandlers = onMouseDownHandler;
 

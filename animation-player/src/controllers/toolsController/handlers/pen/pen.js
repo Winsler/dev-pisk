@@ -2,32 +2,28 @@ import Handler from '../../Handler/index';
 
 function getMouseDownHandler({ canvas, convetCoordsToCanvasRect, globalState }, erase = false) {
   function onMouseDown(mouseDownEvt) {
-    const canvasCoords = {
-      x: canvas.getBoundingClientRect().left,
-      y: canvas.getBoundingClientRect().top,
-      xEnd: canvas.getBoundingClientRect().right,
-      yEnd: canvas.getBoundingClientRect().bottom,
-    };
+    const canvasClass = canvas.linkToClass;
 
-    const downCoords = {
-      x: Math.min(Math.max(0, mouseDownEvt.clientX - canvasCoords.x), canvasCoords.xEnd),
-      y: Math.min(Math.max(0, mouseDownEvt.clientY - canvasCoords.y), canvasCoords.yEnd),
-    };
+    const downCoords = canvasClass.getRelativeCoords({
+      x: mouseDownEvt.clientX,
+      y: mouseDownEvt.clientY,
+    });
 
     function stroke(coords, coords2) {
       const [i, j] = convetCoordsToCanvasRect(coords,
         globalState.mainCanvasSize, globalState.parts);
+
       let [i2, j2] = [i, j];
+
       if (coords2) {
         [i2, j2] = convetCoordsToCanvasRect(coords2,
           globalState.mainCanvasSize, globalState.parts);
-      } else {
-        [i2, j2] = [i, j];
       }
 
       const color = erase ? 'rgba(0, 0, 0, 0)' : globalState.currColor;
-      globalState.view.refreshCanvasPath([i, j], [i2, j2], color);
-      globalState.activeFrame.refreshCanvas();
+
+      globalState.view.paintPath([i, j], [i2, j2], color);
+      globalState.activeFrame.paintState();
     }
 
     stroke(downCoords, downCoords);
@@ -35,11 +31,10 @@ function getMouseDownHandler({ canvas, convetCoordsToCanvasRect, globalState }, 
     let previousCoords = JSON.parse(JSON.stringify(downCoords));
 
     function onMoseMove(mouseMoveEvt) {
-      const positionCoords = {
-        x: Math.min(Math.max(0, mouseMoveEvt.clientX - canvasCoords.x), canvasCoords.xEnd),
-        y: Math.min(Math.max(0, mouseMoveEvt.clientY - canvasCoords.y), canvasCoords.yEnd),
-      };
-
+      const positionCoords = canvasClass.getRelativeCoords({
+        x: mouseMoveEvt.clientX,
+        y: mouseMoveEvt.clientY,
+      });
       stroke(previousCoords, positionCoords);
       previousCoords = JSON.parse(JSON.stringify(positionCoords));
     }

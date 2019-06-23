@@ -20,8 +20,8 @@ function getMouseDownHandler(canvas, convetCoordsToCanvasRect, globalState) {
       globalState.mainCanvasSize, globalState.parts);
     // eslint-disable-next-line no-param-reassign
     globalState.activeRect[i][j] = TRANSPARENT_COLOR;
-    globalState.view.refreshCanvas(globalState.activeRect);
-    globalState.activeFrame.refreshCanvas();
+    globalState.view.paintState(globalState.activeRect);
+    globalState.activeFrame.paintState();
 
     function onMoseMove(mouseMoveEvt) {
       const positionCoords = {
@@ -32,8 +32,8 @@ function getMouseDownHandler(canvas, convetCoordsToCanvasRect, globalState) {
         globalState.mainCanvasSize, globalState.parts);
       // eslint-disable-next-line no-param-reassign
       globalState.activeRect[i][j] = TRANSPARENT_COLOR;
-      globalState.view.refreshCanvas(globalState.activeRect);
-      globalState.activeFrame.refreshCanvas();
+      globalState.view.paintState(globalState.activeRect);
+      globalState.activeFrame.paintState();
     }
 
     const onMouseMoveHandler = new Handler(canvas, 'mousemove', onMoseMove);

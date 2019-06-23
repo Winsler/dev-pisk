@@ -16,7 +16,7 @@ function getPipetteHandler({ canvas, convetCoordsToCanvasRect, globalState }) {
     // eslint-disable-next-line no-param-reassign
     globalState.currColor = color;
     // eslint-disable-next-line no-param-reassign
-    globalState.view.components.tools.components.colorPicker.value = color;
+    globalState.view.components.tools.components.mainColorPicker.value = color;
   }
 
   const onClickHandler = new Handler(canvas, 'click', onClick);

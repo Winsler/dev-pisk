@@ -14,7 +14,7 @@ function getRectangleHandler({ canvas, convetCoordsToCanvasRect, globalState }) 
       canvasClass.getCanvasSize(), globalState.parts);
     // eslint-disable-next-line no-param-reassign
     globalState.activeRect[i0][j0] = globalState.currColor;
-    canvasClass.strokeRect(globalState.activeRect);
+    canvasClass.paintImage(globalState.activeRect);
 
     function onMouseMove(mouseMoveEvt) {
       const moveCoords = canvasClass.getRelativeCoords({
@@ -66,15 +66,23 @@ function getRectangleHandler({ canvas, convetCoordsToCanvasRect, globalState }) 
         j = j0 + totalDelta * signY;
       }
       tempRect[i][j] = globalState.currColor;
-      canvasClass.strokeRect(tempRect);
+      canvasClass.paintImage(tempRect);
     }
 
     const mouseMoveHandler = new Handler(canvas, 'mousemove', onMouseMove);
 
     function onMouseUp() {
-      // отрисовать анимацию и фрейм, заменить все это на метод, чтобы не было переназначения
+      // TODO отрисовать анимацию и фрейм, заменить все это на метод, чтобы не было переназначения
+      const newImage = JSON.parse(JSON.stringify(tempRect));
+      // setImage(newImage);
+      globalState.activeFrame.setImage(newImage);
       // eslint-disable-next-line no-param-reassign
-      globalState.activeRect = tempRect;
+      globalState.view.components.canvas.state.imageMatrix = newImage;
+      // eslint-disable-next-line no-param-reassign
+      globalState.activeRect = newImage;
+      globalState.view.paintImage(globalState.activeRect);
+      canvasClass.paintImage(globalState.activeRect);
+      globalState.activeFrame.paintState();
       mouseMoveHandler.remove();
     }
 

@@ -1,24 +1,17 @@
-import pen from './Pen/index';
 import Tool from './Tool/index';
 import getHandlers from './handlers/index';
-// import handlers from '../utils/handlers';
 
 class Tools {
   constructor(mainController) {
     this.mainController = mainController;
     this.tools = {};
-    this.parts = this.mainController.state.parts;
-    this.view = this.mainController.view;
     this.state = {
       currentTool: null,
     };
   }
 
   init() {
-    // TODO чтобы не было селектора
-    const palette = document.body.querySelector('.palette');
-    const canvas = document.body.querySelector('.canvas canvas');
-    const penNode = palette.querySelector('[data-tool-type=pen]');
+    const canvas = this.mainController.view.components.canvas.components.canvasNode;
     const handlerOptions = {
       canvas,
       convetCoordsToCanvasRect:
@@ -26,73 +19,58 @@ class Tools {
       globalState: this.mainController.state,
     };
 
-    // Тут и далее повторяется - вынести в функцию
-    this.tools.pen = new Tool(penNode,
-      [pen.getHandlers(handlerOptions)]);
+    const { pen } = this.mainController.view.components.tools.components;
+    this.tools.pen = new Tool(pen, [getHandlers.pen(handlerOptions)]);
 
-    const eraserNode = palette.querySelector('[data-tool-type=eraser]');
-    this.tools.eraser = new Tool(eraserNode,
-      [pen.getHandlers(handlerOptions, true)]);
+    const { eraser } = this.mainController.view.components.tools.components;
+    this.tools.eraser = new Tool(eraser, [getHandlers.pen(handlerOptions, true)]);
 
-    const bucketNode = palette.querySelector('[data-tool-type=bucket]');
-    this.tools.bucket = new Tool(bucketNode, [getHandlers.bucket(handlerOptions)]);
+    const { bucket } = this.mainController.view.components.tools.components;
+    this.tools.bucket = new Tool(bucket, [getHandlers.bucket(handlerOptions)]);
 
-    const rectangleNode = palette.querySelector('[data-tool-type=rectangle]');
-    this.tools.rectangle = new Tool(rectangleNode, [getHandlers.rectangle(handlerOptions)]);
+    const { rectangle } = this.mainController.view.components.tools.components;
+    this.tools.rectangle = new Tool(rectangle,
+      [getHandlers.rectangle(handlerOptions, this.linkImage.bind(this))]);
 
-    const sameColorPainterNode = palette.querySelector('[data-tool-type=paintSameColor]');
-    this.tools.paintSameColor = new Tool(sameColorPainterNode,
+    const { mirrorPen } = this.mainController.view.components.tools.components;
+    this.tools.mirrorPen = new Tool(mirrorPen, [getHandlers.mirrorPen(handlerOptions)]);
+
+    const { pipette } = this.mainController.view.components.tools.components;
+    this.tools.pipette = new Tool(pipette, [getHandlers.pipette(handlerOptions)]);
+
+    const { lighten } = this.mainController.view.components.tools.components;
+    this.tools.lighten = new Tool(lighten, [getHandlers.lighten(handlerOptions)]);
+
+    const { sameColorPainter } = this.mainController.view.components.tools.components;
+    this.tools.paintSameColor = new Tool(sameColorPainter,
       [getHandlers.paintSameColor(handlerOptions)]);
 
-    const mirrorPenNode = palette.querySelector('[data-tool-type=mirrorPen]');
-    this.tools.mirrorPen = new Tool(mirrorPenNode,
-      [getHandlers.mirrorPen(handlerOptions)]);
-
-    const pipetteNode = palette.querySelector('[data-tool-type=pipette]');
-    this.tools.pipette = new Tool(pipetteNode,
-      [getHandlers.pipette(handlerOptions)]);
-
-    palette.addEventListener('click', (toolsClickEvt) => {
-      let currentNode = toolsClickEvt.target;
-      let tool = currentNode.getAttribute('data-tool-type');
-      while (!tool) {
-        currentNode = currentNode.parentNode;
-        tool = currentNode.getAttribute('data-tool-type');
-      }
-      if (tool !== 'colorPicker') {
-        this.swapTool(this.tools[tool]);
-      }
-    });
+    const { palette } = this.mainController.view.components.tools.components;
+    getHandlers.toolSelection(palette, this.swapTool.bind(this), this.tools).add();
   }
 
-  // TODO вынести в класс тулы ???
   setTool(tool) {
     this.state.currentTool = tool;
-    this.state.currentTool.node.classList.add('palette__tool--active');
-    this.state.currentTool.addToolhandlers();
-    this.state.currentTool.cursors.forEach((cursor) => {
-      const currentCursor = cursor;
-      currentCursor.target.style.cursor = currentCursor.cursor;
-    });
+    this.state.currentTool.add();
   }
 
   removeTool() {
     if (!this.state.currentTool) {
       return;
     }
-
-    this.state.currentTool.node.classList.remove('palette__tool--active');
-    this.state.currentTool.removeToolhandlers();
-    this.state.currentTool.cursors.forEach((cursor) => {
-      const currentCursor = cursor;
-      currentCursor.target.style.cursor = '';
-    });
+    this.state.currentTool.remove();
     this.state.currentTool = null;
   }
 
   swapTool(newTool) {
     this.removeTool();
     this.setTool(newTool);
+  }
+
+  linkImage(image) {
+    this.mainController.state.activeFrame.setImage(image);
+    this.mainController.view.components.canvas.state.imageMatrix = image;
+    this.mainController.state.activeRect = image;
   }
 }
 

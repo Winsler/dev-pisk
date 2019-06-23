@@ -2,8 +2,8 @@ import html from './frameView.html';
 import Canvas from '../../Canvas/Canvas';
 
 class Frame extends Canvas {
-  constructor(h, colors, options) {
-    super(html, options, colors);
+  constructor(h, imageMatrix, options) {
+    super(html, options, imageMatrix);
     this.components.popup = {
       counter: this.node.querySelector('.frame__tool--counter'),
       bucket: this.node.querySelector('.frame__tool--bucket'),
@@ -13,23 +13,23 @@ class Frame extends Canvas {
   }
 
   render(parent) {
-    super.render(parent, this.state.colors);
+    super.render(parent, this.state.imageMatrix);
     this.components.canvasNode.linkToFrameClass = this;
     const canvasStyle = getComputedStyle(this.components.frame);
     this.node.style.width = canvasStyle.width;
     this.node.style.height = canvasStyle.height;
   }
 
-  strokeRect() {
-    super.strokeRect(this.state.colors);
+  paintIamge() {
+    super.paintImage(this.state.imageMatrix);
   }
 
   setIndex(index) {
     this.components.popup.counter.querySelector('i').textContent = index;
   }
 
-  refreshCanvas() {
-    this.strokeRect();
+  paintState() {
+    this.paintIamge();
   }
 
   enable() {

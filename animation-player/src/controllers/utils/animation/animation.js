@@ -1,40 +1,22 @@
-
-
-/*
-function startAnimation(fps) {
-  const actualFPS = fps || this.options.defaultFPS;
-
-  if (this.state.timer) {
-    clearInterval(this.state.timer);
-  }
-  this.state.timer = setInterval(() => {
-    const previewRect = this.state.rects.next();
-    this.view.components.preview.strokeRect(previewRect);
-  }, 1000 / actualFPS);
-}
-*/
-
-function startAnimation() {
+export default function startAnimation() {
   const controller = this;
   let timeOfLastRender = 0;
 
-  const canvas = document.body.querySelector('.preview canvas').linkToClass;
+  const canvas = controller.view.components.preview;
 
-  function renderRect() {
+  function renderImage() {
     const { fps } = controller.state;
     const delay = 1000 / fps;
     const now = Date.now();
     if (now - timeOfLastRender >= delay) {
       timeOfLastRender = now;
-      const previewRect = controller.state.liveRects.getNext().querySelector('canvas').linkToFrameClass.state.colors;
+      const previewRect = controller.state.liveRects.getNext().querySelector('canvas').linkToFrameClass.state.imageMatrix;
       if (previewRect) {
         canvas.clear();
-        controller.view.components.preview.strokeRect(previewRect);
+        controller.view.components.preview.paintImage(previewRect);
       }
     }
-    requestAnimationFrame(renderRect);
+    requestAnimationFrame(renderImage);
   }
-  renderRect();
+  renderImage();
 }
-
-export default startAnimation;

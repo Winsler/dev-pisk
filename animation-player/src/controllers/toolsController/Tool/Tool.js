@@ -37,5 +37,23 @@ class Tool {
     this.subtool = subtool;
     return this;
   }
+
+  remove() {
+    this.node.classList.remove('palette__tool--active');
+    this.removeToolhandlers();
+    this.cursors.forEach((cursor) => {
+      const currentCursor = cursor;
+      currentCursor.target.style.cursor = '';
+    });
+  }
+
+  add() {
+    this.node.classList.add('palette__tool--active');
+    this.addToolhandlers();
+    this.cursors.forEach((cursor) => {
+      const currentCursor = cursor;
+      currentCursor.target.style.cursor = currentCursor.cursor;
+    });
+  }
 }
 export default Tool;

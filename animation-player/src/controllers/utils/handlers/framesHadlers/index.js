@@ -1,10 +1,9 @@
 import {
-  onClickFrameBtn, onMouseOverFrame, onFrameClick, onDragStart, onDrop, onDragEnter, onDragLeave,
+  onClickFrameBtn, onFrameClick, onDragStart, onDrop, onDragEnter, onDragLeave,
 } from './handlers';
 
 const frameHandlers = {
   addFrame: onClickFrameBtn,
-  showFramePopup: onMouseOverFrame,
   frameActions: onFrameClick,
   drafFrame: onDragStart,
   dropFrame: onDrop,

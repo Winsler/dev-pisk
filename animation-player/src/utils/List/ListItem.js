@@ -1,6 +1,6 @@
 class ListItem {
   constructor(rect, previous, next) {
-    this.value = rect;
+    this.value = JSON.parse(JSON.stringify(rect));
     this.previous = previous || null;
     this.next = next || null;
   }
