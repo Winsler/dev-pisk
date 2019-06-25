@@ -2,13 +2,14 @@ import Handler from '../../Handler';
 
 export default function getToolSelectionHandler(target, actionOnTool, tools) {
   function onClick(clickEvt) {
+    const excludes = ['mainColorPicker', 'subColorPicker', 'shortCutsSetter'];
     let currentNode = clickEvt.target;
     let tool = currentNode.getAttribute('data-tool-type');
     while (!tool) {
       currentNode = currentNode.parentNode;
       tool = currentNode.getAttribute('data-tool-type');
     }
-    if (tool !== 'mainColorPicker' && tool !== 'subColorPicker') {
+    if (!excludes.includes(tool)) {
       actionOnTool(tools[tool]);
     }
   }

@@ -1,3 +1,5 @@
+import '../../../../assets/gif';
+
 export function onRangeInput(inputEvt) {
   const fps = inputEvt.target.value;
   this.view.components.preview.components.fpsBox.textContent = `${fps} FPS`;
@@ -10,10 +12,7 @@ export function onFullScreenBtnClick() {
 
 
 export function onGifBtnClick() {
-  const slides = Array.from(this.state.liveRects).map((el) => {
-    const slide = el.querySelector('canvas').linkToFrameClass.state.colors;
-    return slide;
-  });
+  const slides = this.getSlides();
 
   const size = 128;
   const parts = 32;
@@ -46,7 +45,6 @@ export function onGifBtnClick() {
         let color = rect[i % parts][[j % parts]];
         if ((color === '#000') || (color === '#000000')) {
           color = '#111111';
-          window.console.log('swapped');
         }
         ctx.fillStyle = color;
         ctx.fillRect(Math.round(size / parts * i),
@@ -59,7 +57,6 @@ export function onGifBtnClick() {
   const delay = 1000 / this.state.fps;
 
   slides.forEach((slide) => {
-    window.console.log(slide);
     const [ctx, canvas] = getCTX();
     paintIamge(ctx, slide);
     gif.addFrame(canvas, { delay, copy: true });
@@ -82,4 +79,13 @@ export function onGifBtnClick() {
   });
 
   gif.render();
+}
+
+
+export function saveSlides() {
+  this.saveSlides();
+}
+
+export function loadSlides() {
+  this.loadSlides();
 }

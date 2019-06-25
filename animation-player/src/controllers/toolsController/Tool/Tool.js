@@ -1,11 +1,11 @@
 class Tool {
-  constructor(node, handlers = [], cursors = [], shortKey) {
+  constructor(node, handlers = [], cursors = [], shortKey = '') {
     this.node = node;
     this.handlers = handlers;
     this.cursors = cursors;
-    this.shortKey = shortKey;
+    this.shortKeyCode = shortKey ? shortKey.toUpperCase()[0].charCodeAt() : shortKey;
     this.subtool = null;
-    this.globalState = null;
+    this.name = node.dataset.toolType;
   }
 
   addToolhandlers() {
@@ -54,6 +54,10 @@ class Tool {
       const currentCursor = cursor;
       currentCursor.target.style.cursor = currentCursor.cursor;
     });
+  }
+
+  setShortKey(shortKey = '') {
+    this.shortKeyCode = shortKey.toUpperCase()[0].charCodeAt();
   }
 }
 export default Tool;

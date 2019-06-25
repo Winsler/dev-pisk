@@ -1,0 +1,110 @@
+@keyframes flashing-border
+  0%
+    border: 2px solid #FFD700
+  100%
+    border: none
+
+.shortcuts
+  visibility: hidden
+  background-color: #070707
+  max-width: 80vw
+  max-height: 80vh
+  margin: 0 auto
+  position: fixed
+  top: 50%
+  left: 50%
+  transform: translate(-50%, -50%)
+  z-index: 2
+  box-sizing: border-box
+  border: 4px solid #FFD700
+  border-radius: 2px
+  display: flex
+  flex-direction: column
+  justify-content: space-between
+
+  &__title,
+  &__footer
+    background-color: #FFD700
+    height: 2.2rem
+    width: 100%
+    display: flex
+    justify-content: center
+    align-items: center
+    color: #000
+    font-weight: bold
+    font-size: 1.2rem
+
+  &__close-btn
+    width: 2rem
+    height: 2rem
+    position: absolute
+    right: 0
+    cursor: pointer
+    display: flex
+    justify-content: center
+    align-items: center
+    font-size: 2rem
+
+
+  &__menu
+    display: flex
+    flex-direction: column
+    justify-content: space-around
+    align-items: flex-start
+    margin: 1rem 0
+
+    &-item
+      margin: 1px 0
+      display: flex
+      align-items: center
+      margin: 0.1rem 1rem
+
+    &-shortcut
+      width: 46px
+      height: 46px
+      box-sizing: border-box
+      border: 2px solid #FFD700
+      border-radius: 2px
+      display: flex
+      align-items: center
+      justify-content: center
+      color: #FFD700
+      margin: 0 6px
+      cursor: pointer
+
+      &--active
+        animation-duration: 0.5s
+        animation-name: flashing-border
+        animation-iteration-count: infinite
+
+    &-img
+      margin: 0
+      cursor: default
+
+      &:hover
+        background-color: #444444
+
+    &-tool-name
+      display: flex
+      justify-content: flex-start
+      align-items: center
+      color: #fff
+
+  &__restore-btn
+    background-color: #A0A0A0
+    border-radius: 2px
+    display: flex
+    justify-content: center
+    align-items: center
+    cursor: pointer
+    padding: 0.25rem
+    color: #fff
+    border: none
+
+    &:hover
+      color: #FFD700
+      border: none
+
+.shortcuts--visible
+  visibility: visible
+

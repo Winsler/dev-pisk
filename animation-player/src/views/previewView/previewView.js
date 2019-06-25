@@ -8,6 +8,8 @@ class Preview extends Canvas {
     this.components.fpsBox = this.node.querySelector('.fps');
     this.components.fullScreenBtn = this.node.querySelector('.full-screen-btn');
     this.components.gifBtn = this.node.querySelector('.get-gif-btn');
+    this.components.saveBtn = this.node.querySelector('.save-btn');
+    this.components.loadBtn = this.node.querySelector('.load-btn');
   }
 
   render(parent, rect, defaultFPS) {

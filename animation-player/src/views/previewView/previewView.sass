@@ -1,29 +1,31 @@
 .preview-wrapper
+  display: flex
+  align-items: center
+  flex-direction: column
+  justify-content: flex-start
+
+  .range-wrapper
+    display: flex
+    background-color: #333
+    margin: 1rem 0
+    padding: 0 0.4rem
+
+    border: 2px solid #887E88
+    border-radius: 4px
+
+
+  .fps
     display: flex
     align-items: center
-    flex-direction: column
-    justify-content: flex-start
+    justify-content: center
 
-    .range-wrapper
-        display: flex
-        background-color: #333
-        margin: 1rem 0
-        padding: 0 0.4rem
+    width: 3.5rem
+    height: 2rem
 
-        border: 2px solid #887E88
-        border-radius: 4px
-
-
-    .fps
-        display: flex
-        align-items: center
-        justify-content: center
-
-        width: 3.5rem
-        height: 2rem
-
-.full-screen-btn,
-.get-gif-btn
+  .full-screen-btn,
+  .get-gif-btn,
+  .save-btn,
+  .load-btn
     display: flex
     align-items: center
     justify-content: center

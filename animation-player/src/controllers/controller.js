@@ -3,6 +3,8 @@ import renderViewWithRandomRect from './utils/misc/index';
 import handlers from './utils/handlers/index';
 import ToolsController from './toolsController/index';
 import List from '../utils/List/index';
+import ShortcutHolder from './ShortcutHolder';
+import MyLocalStorage from './utils/MyLocalStorage';
 
 class Controller {
   constructor(View, Model, size) {
@@ -24,9 +26,12 @@ class Controller {
       subCurrColor: '#000',
       liveRects: this.view.components.frames.getItemsLiveList(),
       history: new List(),
-      shortcuts: {},
+      shortcuts: new ShortcutHolder(),
+      changeShortcutMode: false,
+      editShortcutMode: false,
     };
     this.tools = new ToolsController(this);
+    this.slidesStorage = new MyLocalStorage('wiskelSlides');
   }
 
   init() {
@@ -44,6 +49,8 @@ class Controller {
     this.view.components.preview.components.range.addEventListener('input', handlers.preview.changeFPS.bind(this));
     this.view.components.preview.components.fullScreenBtn.addEventListener('click', handlers.preview.fullScreenMode.bind(this));
     this.view.components.preview.components.gifBtn.addEventListener('click', handlers.preview.getGif.bind(this));
+    this.view.components.preview.components.saveBtn.addEventListener('click', handlers.preview.saveSlides.bind(this));
+    this.view.components.preview.components.loadBtn.addEventListener('click', handlers.preview.loadSlides.bind(this));
 
     const { mainColorPicker, subColorPicker } = this.view.components.tools.components;
     mainColorPicker.addEventListener('input', () => {
@@ -99,8 +106,10 @@ class Controller {
       }
     };
 
-    // TODO убрат ьмагиеские значения
     document.body.addEventListener('keydown', (e) => {
+      if (this.state.changeShortcutMode) {
+        return;
+      }
       if (KEYS[e.keyCode] === 'ESC' && this.tools.state.currentTool) {
         this.tools.state.currentTool.remove();
       } else if (KEYS[e.keyCode] === 'Z' && e.ctrlKey) {
@@ -109,12 +118,52 @@ class Controller {
       } else if (KEYS[e.keyCode] === 'Y' && e.ctrlKey) {
         const newRect = this.state.history.next();
         paintFromHist(newRect);
+      } else if (this.state.shortcuts.shorcuts[e.keyCode]) {
+        this.state.shortcuts.shorcuts[e.keyCode]();
       }
     });
   }
 
   setToolsState() {
     return this;
+  }
+
+  getSlides() {
+    const slides = Array.from(this.state.liveRects).map((el) => {
+      const slide = el.querySelector('canvas').linkToFrameClass.state.imageMatrix;
+      return slide;
+    });
+    return slides;
+  }
+
+  saveSlides() {
+    const slides = JSON.stringify(this.getSlides());
+    this.slidesStorage.save(slides);
+  }
+
+  loadSlides() {
+    const slides = JSON.parse(this.slidesStorage.load());
+    if (!slides || !slides.length) {
+      return;
+    }
+    this.clearSlides();
+    slides.forEach((slide) => {
+      this.view.components.frames.addFrame(slide, this.state.liveRects.length + 1);
+    });
+    this.state.history.clearList();
+    const lastSlide = slides[slides.length - 1];
+    const lastFrame = this.view.components.frames.components.frameList
+      .lastElementChild.querySelector('canvas').linkToClass;
+    this.state.activeRect = lastSlide;
+    this.view.components.canvas.paintImage(this.state.activeRect);
+    this.view.components.canvas.state.imageMatrix = this.state.activeRect;
+    this.state.activeFrame = lastFrame;
+    this.state.activeFrame.enable();
+  }
+
+  clearSlides() {
+    const slides = Array.from(this.state.liveRects);
+    slides.forEach(el => el.remove());
   }
 }
 
