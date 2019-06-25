@@ -18,6 +18,7 @@ class Tools extends NodeComponentView {
       lighten: this.node.querySelector('[data-tool-type=lighten]'),
       sameColorPainter: this.node.querySelector('[data-tool-type=paintsamecolor]'),
       shortCutsSetter: this.node.querySelector('[data-tool-type=shortCutsSetter]'),
+      swapColorTool: this.node.querySelector('[data-tool-type=swapcolors]'),
     };
   }
 

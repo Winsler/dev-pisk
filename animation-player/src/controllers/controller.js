@@ -51,14 +51,29 @@ class Controller {
     this.view.components.preview.components.gifBtn.addEventListener('click', handlers.preview.getGif.bind(this));
     this.view.components.preview.components.saveBtn.addEventListener('click', handlers.preview.saveSlides.bind(this));
     this.view.components.preview.components.loadBtn.addEventListener('click', handlers.preview.loadSlides.bind(this));
+    this.view.components.preview.components.infoSize.textContent = `${this.state.parts} x ${this.state.parts}`;
+    this.view.components.canvas.components.canvasNode.addEventListener('mousemove', (mouseMoveEvt) => {
+      const canvas = this.view.components.canvas.components.canvasNode.linkToClass;
+      const [i, j] = this.model.constructor.convetCoordsToCanvasRect(
+        { x: mouseMoveEvt.clientX, y: mouseMoveEvt.clientY },
+        canvas.getCanvasSize(),
+        this.state.parts,
+        this.view.components.canvas.components.canvasNode,
+      );
+      this.view.components.preview.components.infoCoords.textContent = `${i + 1} - ${j + 1}`;
+    });
 
-    const { mainColorPicker, subColorPicker } = this.view.components.tools.components;
+    const { mainColorPicker, subColorPicker, swapColorTool } = this.view.components.tools.components;
     mainColorPicker.addEventListener('input', () => {
       this.state.currColor = mainColorPicker.value;
     });
 
     subColorPicker.addEventListener('input', () => {
       this.state.subCurrColor = subColorPicker.value;
+    });
+
+    swapColorTool.addEventListener('click', () => {
+      this.swapColors();
     });
 
     this.state.liveRects.getNext = (function getNextWrapepr() {
@@ -164,6 +179,14 @@ class Controller {
   clearSlides() {
     const slides = Array.from(this.state.liveRects);
     slides.forEach(el => el.remove());
+  }
+
+  swapColors() {
+    const temp = this.state.currColor;
+    this.state.currColor = this.state.subCurrColor;
+    this.state.subCurrColor = temp;
+    this.view.components.tools.components.mainColorPicker.value = this.state.currColor;
+    this.view.components.tools.components.subColorPicker.value = this.state.subCurrColor;
   }
 }
 

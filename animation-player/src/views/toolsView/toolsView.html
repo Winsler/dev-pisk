@@ -8,8 +8,11 @@
     <div class="palette__tool palette__tool--mirrorpen" data-tool-type="mirrorpen" title="Vertical Mirror Pen"></div>
     <div class="palette__tool palette__tool--pipette" data-tool-type="pipette" title="Color Picker"></div>
     <div class="palette__tool palette__tool--lighten" data-tool-type="lighten" title="Lighten"></div>
-    <input type="color" class="color-picker" data-tool-type="mainColorPicker">
-    <input type="color" class="color-picker" data-tool-type="subColorPicker">
+    <div class="colorpicker-wrapper">
+      <input type="color" class="color-picker color-picker--main" data-tool-type="mainColorPicker">
+      <input type="color" class="color-picker color-picker--sub" data-tool-type="subColorPicker">
+      <div class="palette__tool palette__tool--swapcolors" data-tool-type="swapcolors" title="Swap Colors"></div>
+    </div>
     <div class="palette__tool palette__tool--shortCuts" data-tool-type="shortCutsSetter" title="Keyboard Shortcuts"></div>
   </div>
 </aside>

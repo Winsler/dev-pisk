@@ -12,7 +12,7 @@ module.exports = {
   },
   module: {
     rules: [
-      { enforce: 'pre', test: /\.js$/, loader: 'eslint-loader' },
+      // { enforce: 'pre', test: /\.js$/, loader: 'eslint-loader' },
       { test: /\.worker\.js$/, use: { loader: 'worker-loader' } },
       { test: /\.html$/, use: 'html-loader' },
       { test: /\.sass$/, use: ExtractTextPlugin.extract(['css-loader', 'postcss-loader', 'sass-loader']) },

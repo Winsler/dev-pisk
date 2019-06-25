@@ -29,12 +29,14 @@ class Model {
     */
   }
 
-  static convetCoordsToCanvasRect({ x, y }, canvasSize, parts) {
+  static convetCoordsToCanvasRect({ x, y }, canvasSize, parts, canvas) {
+    const leftOffset = canvas ? canvas.offsetLeft : 0;
+    const topOffset = canvas ? canvas.offsetTop : 0;
     const partSizeX = canvasSize.width / parts;
-    const partX = Math.trunc(x / partSizeX);
+    const partX = Math.trunc((x - leftOffset) / partSizeX);
 
     const partSizeY = canvasSize.height / parts;
-    const partY = Math.trunc(y / partSizeY);
+    const partY = Math.trunc((y - topOffset) / partSizeY);
 
     return [partX, partY];
   }
