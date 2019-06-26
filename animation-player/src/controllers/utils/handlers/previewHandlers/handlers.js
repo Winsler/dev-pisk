@@ -7,7 +7,9 @@ export function onRangeInput(inputEvt) {
 }
 
 export function onFullScreenBtnClick() {
-  this.view.components.preview.components.canvasNode.requestFullscreen();
+  const fullScreen = Element.prototype.requestFullscreen
+    || Element.prototype.webkitRequestFullscreen;
+  fullScreen.call(this.view.components.preview.components.canvasNode);
 }
 
 
