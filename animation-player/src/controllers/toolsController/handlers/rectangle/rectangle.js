@@ -16,6 +16,7 @@ function getRectangleHandler({ canvas, convetCoordsToCanvasRect, globalState }) 
     const color = mouseDownEvt.button ? globalState.subCurrColor : globalState.currColor;
 
     let tempRect = null;
+    const originalRect = JSON.parse(JSON.stringify(globalState.activeRect));
     const [i0, j0] = convetCoordsToCanvasRect(downCoords,
       canvasClass.getCanvasSize(), globalState.parts);
     // eslint-disable-next-line no-param-reassign
@@ -77,25 +78,37 @@ function getRectangleHandler({ canvas, convetCoordsToCanvasRect, globalState }) 
 
     const mouseMoveHandler = new Handler(canvas, 'mousemove', onMouseMove);
 
-    function onMouseUp() {
-      // TODO отрисовать анимацию и фрейм, заменить все это на метод, чтобы не было переназначения
-      const newImage = JSON.parse(JSON.stringify(tempRect));
+    function paintImage(image) {
       // setImage(newImage);
-      globalState.activeFrame.setImage(newImage);
+      globalState.activeFrame.setImage(image);
       // eslint-disable-next-line no-param-reassign
-      globalState.view.components.canvas.state.imageMatrix = newImage;
+      globalState.view.components.canvas.state.imageMatrix = image;
       // eslint-disable-next-line no-param-reassign
-      globalState.activeRect = newImage;
+      globalState.activeRect = image;
       globalState.view.paintImage(globalState.activeRect);
       canvasClass.paintImage(globalState.activeRect);
       globalState.activeFrame.paintState();
       mouseMoveHandler.remove();
     }
 
+    function onMouseUp() {
+      const newImage = JSON.parse(JSON.stringify(tempRect));
+      paintImage(newImage);
+    }
+
     const mouseUpHandler = new Handler(canvas, 'mouseup', onMouseUp, { once: true });
+
+    function onMouseOut() {
+      mouseMoveHandler.remove();
+      mouseUpHandler.remove();
+      paintImage(originalRect);
+    }
+
+    const mouseOutHandler = new Handler(canvas, 'mouseout', onMouseOut, { once: true });
 
     mouseMoveHandler.add();
     mouseUpHandler.add();
+    mouseOutHandler.add();
   }
 
   const triangleHandler = new Handler(canvas, 'mousedown', onMouseDown);
