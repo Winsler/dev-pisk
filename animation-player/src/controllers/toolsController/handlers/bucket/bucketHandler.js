@@ -23,6 +23,9 @@ function getBucketHandler({ canvas, convetCoordsToCanvasRect, globalState }) {
     const rect = globalState.activeRect;
     const BUCKET_COLOR = rect[i][j];
     const color = clickEvt.button ? globalState.subCurrColor : globalState.currColor;
+    if (BUCKET_COLOR === color) {
+      return;
+    }
 
     function getNeighbourhood(point, currRect) {
       const Neighbourhood = [];
