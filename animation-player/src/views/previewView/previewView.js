@@ -10,8 +10,11 @@ class Preview extends Canvas {
     this.components.gifBtn = this.node.querySelector('.get-gif-btn');
     this.components.saveBtn = this.node.querySelector('.save-btn');
     this.components.loadBtn = this.node.querySelector('.load-btn');
+    this.components.localSaveBtn = this.node.querySelector('.local-save-btn');
+    this.components.localLoadBtn = this.node.querySelector('.local-load-btn');
     this.components.infoSize = this.node.querySelector('.info__size');
     this.components.infoCoords = this.node.querySelector('.info__coords');
+    this.components.fileInput = this.node.querySelector('.file-input--hidden');
   }
 
   render(parent, rect, defaultFPS) {

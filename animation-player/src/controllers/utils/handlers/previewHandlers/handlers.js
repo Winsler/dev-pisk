@@ -1,4 +1,5 @@
 import '../../../../assets/gif';
+// import fs from 'fs';
 
 export function onRangeInput(inputEvt) {
   const fps = inputEvt.target.value;
@@ -90,4 +91,34 @@ export function saveSlides() {
 
 export function loadSlides() {
   this.loadSlides();
+}
+
+function download(content, fileName, contentType) {
+  const a = document.createElement('a');
+  const file = new Blob([content], { type: contentType });
+  a.href = URL.createObjectURL(file);
+  a.download = fileName;
+  a.click();
+}
+
+export function localSave() {
+  const slides = JSON.stringify(this.getSlides());
+  download(slides, 'wiskel.json', 'application/json');
+}
+
+export function localLoad() {
+  this.view.components.preview.components.fileInput.click();
+}
+
+export function loadFile() {
+  const render = this.renderSlides.bind(this);
+  function onReaderLoad(event) {
+    const data = JSON.parse(event.target.result);
+    render(data);
+  }
+
+  const input = this.view.components.preview.components.fileInput;
+  const reader = new FileReader();
+  reader.onload = onReaderLoad;
+  reader.readAsText(input.files[0]);
 }

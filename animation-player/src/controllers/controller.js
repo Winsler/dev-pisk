@@ -51,6 +51,9 @@ class Controller {
     this.view.components.preview.components.gifBtn.addEventListener('click', handlers.preview.getGif.bind(this));
     this.view.components.preview.components.saveBtn.addEventListener('click', handlers.preview.saveSlides.bind(this));
     this.view.components.preview.components.loadBtn.addEventListener('click', handlers.preview.loadSlides.bind(this));
+    this.view.components.preview.components.localSaveBtn.addEventListener('click', handlers.preview.localSave.bind(this));
+    this.view.components.preview.components.localLoadBtn.addEventListener('click', handlers.preview.localLoad.bind(this));
+    this.view.components.preview.components.fileInput.addEventListener('change', handlers.preview.loadFile.bind(this));
     this.view.components.preview.components.infoSize.textContent = `${this.state.parts} x ${this.state.parts}`;
     this.view.components.canvas.components.canvasNode.addEventListener('mousemove', (mouseMoveEvt) => {
       const canvas = this.view.components.canvas.components.canvasNode.linkToClass;
@@ -171,6 +174,10 @@ class Controller {
 
   loadSlides() {
     const slides = JSON.parse(this.slidesStorage.load());
+    this.renderSlides(slides);
+  }
+
+  renderSlides(slides) {
     if (!slides || !slides.length) {
       return;
     }

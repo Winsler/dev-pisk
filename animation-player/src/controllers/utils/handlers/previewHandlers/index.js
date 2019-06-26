@@ -1,5 +1,6 @@
 import {
-  onRangeInput, onFullScreenBtnClick, onGifBtnClick, saveSlides, loadSlides,
+  onRangeInput, onFullScreenBtnClick, onGifBtnClick,
+  saveSlides, loadSlides, localSave, localLoad, loadFile,
 } from './handlers';
 
 const previewHandlers = {
@@ -8,6 +9,9 @@ const previewHandlers = {
   getGif: onGifBtnClick,
   saveSlides,
   loadSlides,
+  localSave,
+  localLoad,
+  loadFile,
 };
 
 export default previewHandlers;
