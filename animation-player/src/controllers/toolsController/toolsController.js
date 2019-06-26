@@ -46,8 +46,16 @@ class Tools {
     this.tools.paintsamecolor = new Tool(sameColorPainter,
       [getHandlers.paintSameColor(handlerOptions)], [], 'S');
 
+    function onToolSelectin(tool) {
+      if (tool === this.state.currentTool) {
+        this.state.currentTool.remove();
+      } else {
+        this.swapTool(tool);
+      }
+    }
+
     const { palette } = this.mainController.view.components.tools.components;
-    getHandlers.toolSelection(palette, this.swapTool.bind(this), this.tools).add();
+    getHandlers.toolSelection(palette, onToolSelectin.bind(this), this.tools).add();
 
     const globalState = this.mainController.state;
 

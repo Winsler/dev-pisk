@@ -60,10 +60,19 @@ class Controller {
         this.state.parts,
         this.view.components.canvas.components.canvasNode,
       );
-      this.view.components.preview.components.infoCoords.textContent = `${i + 1} - ${j + 1}`;
+      this.view.components.preview.components.infoCoords.textContent = `${j + 1} - ${i + 1}`;
     });
 
-    const { mainColorPicker, subColorPicker, swapColorTool } = this.view.components.tools.components;
+    this.view.components.canvas.components.canvasNode.addEventListener('click', clickEvt => clickEvt.preventDefault());
+    this.view.components.canvas.components.canvasNode.addEventListener('mousedown', downEvt => downEvt.preventDefault());
+    this.view.components.canvas.components.canvasNode.addEventListener('contextmenu', ctxMenuEvt => ctxMenuEvt.preventDefault());
+
+    const {
+      mainColorPicker,
+      subColorPicker,
+      swapColorTool,
+    } = this.view.components.tools.components;
+
     mainColorPicker.addEventListener('input', () => {
       this.state.currColor = mainColorPicker.value;
     });
@@ -108,6 +117,7 @@ class Controller {
       27: 'ESC',
       90: 'Z',
       89: 'Y',
+      32: 'SPACE',
     };
 
     const paintFromHist = (hist) => {
@@ -133,7 +143,10 @@ class Controller {
       } else if (KEYS[e.keyCode] === 'Y' && e.ctrlKey) {
         const newRect = this.state.history.next();
         paintFromHist(newRect);
-      } else if (this.state.shortcuts.shorcuts[e.keyCode]) {
+      } else if (KEYS[e.keyCode] === 'SPACE' && e.ctrlKey) {
+        e.preventDefault();
+        this.swapColors();
+      } else if (this.state.shortcuts.shorcuts[e.keyCode] && !e.ctrlKey) {
         this.state.shortcuts.shorcuts[e.keyCode]();
       }
     });

@@ -2,6 +2,9 @@ import Handler from '../../Handler/index';
 
 function getBucketHandler({ canvas, convetCoordsToCanvasRect, globalState }) {
   function onClick(clickEvt) {
+    if (clickEvt.button === 1) {
+      return;
+    }
     const canvasCoords = {
       x: canvas.getBoundingClientRect().left,
       y: canvas.getBoundingClientRect().top,
@@ -19,6 +22,7 @@ function getBucketHandler({ canvas, convetCoordsToCanvasRect, globalState }) {
 
     const rect = globalState.activeRect;
     const BUCKET_COLOR = rect[i][j];
+    const color = clickEvt.button ? globalState.subCurrColor : globalState.currColor;
 
     function getNeighbourhood(point, currRect) {
       const Neighbourhood = [];
@@ -43,7 +47,7 @@ function getBucketHandler({ canvas, convetCoordsToCanvasRect, globalState }) {
         if (partCoords[0] >= 0 && partCoords[1] >= 0) {
           const part = rect[partCoords[0]][partCoords[1]];
           if (part === BUCKET_COLOR) {
-            rect[partCoords[0]][partCoords[1]] = globalState.currColor;
+            rect[partCoords[0]][partCoords[1]] = color;
             nextArea = nextArea.concat(getNeighbourhood(partCoords, rect));
           }
         }
@@ -55,7 +59,8 @@ function getBucketHandler({ canvas, convetCoordsToCanvasRect, globalState }) {
     globalState.activeFrame.paintState();
   }
 
-  const bucketHandler = new Handler(canvas, 'click', onClick);
+  const bucketRightButtonHandler = new Handler(canvas, 'contextmenu', onClick);
+  const bucketHandler = new Handler(canvas, 'click', onClick, {}, [bucketRightButtonHandler]);
   return bucketHandler;
 }
 

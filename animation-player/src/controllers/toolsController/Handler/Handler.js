@@ -11,6 +11,7 @@ class Handler {
 
   add() {
     this.target.addEventListener(this.event, this.handler, this.options);
+    this.subHandlers.forEach(handler => handler.add());
   }
 
   remove() {

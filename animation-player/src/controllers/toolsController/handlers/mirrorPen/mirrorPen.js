@@ -2,6 +2,10 @@ import Handler from '../../Handler/index';
 
 function getMirrorPenHandler({ canvas, convetCoordsToCanvasRect, globalState }) {
   function onMouseDown(mouseDownEvt) {
+    if (mouseDownEvt.button === 1) {
+      return;
+    }
+
     const canvasCoords = {
       x: canvas.getBoundingClientRect().left,
       y: canvas.getBoundingClientRect().top,
@@ -13,6 +17,8 @@ function getMirrorPenHandler({ canvas, convetCoordsToCanvasRect, globalState }) 
       x: Math.min(Math.max(0, mouseDownEvt.clientX - canvasCoords.x), canvasCoords.xEnd),
       y: Math.min(Math.max(0, mouseDownEvt.clientY - canvasCoords.y), canvasCoords.yEnd),
     };
+
+    const color = mouseDownEvt.button ? globalState.subCurrColor : globalState.currColor;
 
     function getMode(evt) {
       if (evt.ctrlKey) {
@@ -46,7 +52,6 @@ function getMirrorPenHandler({ canvas, convetCoordsToCanvasRect, globalState }) 
         [mirrorI2, mirrorJ2] = [globalState.parts - i2, globalState.parts - j2];
       }
 
-      const color = globalState.currColor;
       globalState.view.paintPath([i, j], [i2, j2], color);
       if (mode === 'vertical') {
         globalState.view.paintPath([verticalMirrorI, verticalMirrorJ],

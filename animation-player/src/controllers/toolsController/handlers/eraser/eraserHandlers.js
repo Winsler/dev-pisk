@@ -2,6 +2,9 @@ import Handler from '../../Handler/index';
 
 function getMouseDownHandler(canvas, convetCoordsToCanvasRect, globalState) {
   function onMouseDown(mouseDownEvt) {
+    if (mouseDownEvt.button === 1) {
+      return;
+    }
     const canvasCoords = {
       x: canvas.getBoundingClientRect().left,
       y: canvas.getBoundingClientRect().top,

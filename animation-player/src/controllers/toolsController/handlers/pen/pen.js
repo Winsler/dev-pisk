@@ -2,6 +2,10 @@ import Handler from '../../Handler/index';
 
 function getMouseDownHandler({ canvas, convetCoordsToCanvasRect, globalState }, erase = false) {
   function onMouseDown(mouseDownEvt) {
+    mouseDownEvt.preventDefault();
+    if (mouseDownEvt.button === 1) {
+      return;
+    }
     const canvasClass = canvas.linkToClass;
 
     const downCoords = canvasClass.getRelativeCoords({
@@ -20,9 +24,9 @@ function getMouseDownHandler({ canvas, convetCoordsToCanvasRect, globalState }, 
           globalState.mainCanvasSize, globalState.parts);
       }
 
-      const color = erase ? 'rgba(0, 0, 0, 0)' : globalState.currColor;
+      const color = mouseDownEvt.button ? globalState.subCurrColor : globalState.currColor;
 
-      globalState.view.paintPath([i, j], [i2, j2], color);
+      globalState.view.paintPath([i, j], [i2, j2], erase ? 'rgba(0, 0, 0, 0)' : color);
       globalState.activeFrame.paintState();
     }
 

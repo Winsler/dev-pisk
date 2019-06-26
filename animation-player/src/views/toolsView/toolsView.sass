@@ -93,15 +93,11 @@
     &:focus
       outline: none
 
-    &--main
-      z-index: 1
+    &::-webkit-color-swatch-wrapper
+	    padding: 0
+
+    &::-webkit-color-swatch
+	    border: none
 
     &--sub
       transform: translate(50%, -25%)
-
-
-input[type="color"]::-webkit-color-swatch-wrapper
-	padding: 0
-
-input[type="color"]::-webkit-color-swatch
-	border: none

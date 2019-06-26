@@ -2,18 +2,24 @@ import Handler from '../../Handler';
 
 // TODO: рефатокрить все повторы
 function getRectangleHandler({ canvas, convetCoordsToCanvasRect, globalState }) {
-  function onMouseDown(mouesDownEvt) {
+  function onMouseDown(mouseDownEvt) {
+    if (mouseDownEvt.button === 1) {
+      return;
+    }
+
     const canvasClass = canvas.linkToClass;
     const downCoords = canvasClass.getRelativeCoords({
-      x: mouesDownEvt.clientX,
-      y: mouesDownEvt.clientY,
+      x: mouseDownEvt.clientX,
+      y: mouseDownEvt.clientY,
     });
+
+    const color = mouseDownEvt.button ? globalState.subCurrColor : globalState.currColor;
 
     let tempRect = null;
     const [i0, j0] = convetCoordsToCanvasRect(downCoords,
       canvasClass.getCanvasSize(), globalState.parts);
     // eslint-disable-next-line no-param-reassign
-    globalState.activeRect[i0][j0] = globalState.currColor;
+    globalState.activeRect[i0][j0] = color;
     canvasClass.paintImage(globalState.activeRect);
 
     function onMouseMove(mouseMoveEvt) {
@@ -44,8 +50,8 @@ function getRectangleHandler({ canvas, convetCoordsToCanvasRect, globalState }) 
 
       while (i !== i0) {
         i -= signX;
-        tempRect[i][j0] = globalState.currColor;
-        tempRect[i][j] = globalState.currColor;
+        tempRect[i][j0] = color;
+        tempRect[i][j] = color;
       }
 
       [i, j] = convetCoordsToCanvasRect(moveCoords,
@@ -56,8 +62,8 @@ function getRectangleHandler({ canvas, convetCoordsToCanvasRect, globalState }) 
       }
       while (j !== j0) {
         j -= signY;
-        tempRect[i0][j] = globalState.currColor;
-        tempRect[i][j] = globalState.currColor;
+        tempRect[i0][j] = color;
+        tempRect[i][j] = color;
       }
       [i, j] = convetCoordsToCanvasRect(moveCoords,
         canvasClass.getCanvasSize(), globalState.parts);
@@ -65,7 +71,7 @@ function getRectangleHandler({ canvas, convetCoordsToCanvasRect, globalState }) 
         i = i0 + totalDelta * signX;
         j = j0 + totalDelta * signY;
       }
-      tempRect[i][j] = globalState.currColor;
+      tempRect[i][j] = color;
       canvasClass.paintImage(tempRect);
     }
 

@@ -6,6 +6,9 @@ const hslToHex = require('hsl-to-hex');
 
 function getLightenHandler({ canvas, convetCoordsToCanvasRect, globalState }) {
   function onClick(clickEvt) {
+    if (clickEvt.button === 1) {
+      return;
+    }
     const canvasCoords = {
       x: canvas.getBoundingClientRect().left,
       y: canvas.getBoundingClientRect().top,
