@@ -37,4 +37,9 @@ export default class ShortcutHolder {
   getTool(keyCode) {
     return this.shorcuts[keyCode];
   }
+
+  clear() {
+    this.shorcuts = {};
+    this.toolToKeyCode = {};
+  }
 }

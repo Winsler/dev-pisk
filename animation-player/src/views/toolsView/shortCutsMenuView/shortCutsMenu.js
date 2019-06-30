@@ -7,6 +7,7 @@ export default class ShortCutsMenu extends NodeComponentView {
     this.components = {
       menu: this.node.querySelector('.shortcuts__menu'),
       closeBtn: this.node.querySelector('.shortcuts__close-btn'),
+      restoreBtn: this.node.querySelector('.shortcuts__restore-btn'),
     };
     this.state = {
       activeShortcut: null,
@@ -37,6 +38,13 @@ export default class ShortCutsMenu extends NodeComponentView {
     Object.keys(shortcuts).forEach((tool) => {
       const element = this.getTool(tool);
       element.textContent = shortcuts[tool] || 'none';
+    });
+  }
+
+  setDefaultShortcutValues(tools) {
+    tools.forEach((tool) => {
+      const element = this.getTool(tool.name);
+      element.textContent = String.fromCharCode(tool.shortKeyCode) || 'none';
     });
   }
 

@@ -46,9 +46,11 @@ class Tools {
     this.tools.paintsamecolor = new Tool(sameColorPainter,
       [getHandlers.paintSameColor(handlerOptions)], [], 'S');
 
+
     function onToolSelectin(tool) {
       if (tool === this.state.currentTool) {
         this.state.currentTool.remove();
+        this.state.currentTool = null;
       } else {
         this.swapTool(tool);
       }
@@ -87,6 +89,13 @@ class Tools {
     this.mainController.view.components.tools.components.shortcutMenu.components.closeBtn
       .addEventListener('click', closeShortcutMenu);
 
+    this.mainController.view.components.tools.components.shortcutMenu.components.restoreBtn
+      .addEventListener('click', () => {
+        globalState.shortcuts.clear();
+        this.bindShortCuts();
+        globalState.view.components.tools.components.shortcutMenu
+          .setDefaultShortcutValues(Object.values(this.tools));
+      });
 
     this.mainController.view.components.tools.components.shortcutMenu.components.menu
       .addEventListener('click', (clickEvt) => {
@@ -129,7 +138,7 @@ class Tools {
         }
       });
 
-    this.buildShortCuts();
+    this.bindShortCuts();
     this.mainController.view.components.tools.components.shortcutMenu
       .fillMenu(Object.values(this.tools));
   }
@@ -165,7 +174,7 @@ class Tools {
     }
   }
 
-  buildShortCuts() {
+  bindShortCuts() {
     Object.values(this.tools).forEach((tool) => {
       this.setShortKey(tool);
     });

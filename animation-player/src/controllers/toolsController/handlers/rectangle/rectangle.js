@@ -16,7 +16,7 @@ function getRectangleHandler({ canvas, convetCoordsToCanvasRect, globalState }) 
     const color = mouseDownEvt.button ? globalState.subCurrColor : globalState.currColor;
 
     let tempRect = null;
-    const originalRect = JSON.parse(JSON.stringify(globalState.activeRect));
+    let originalRect = JSON.parse(JSON.stringify(globalState.activeRect));
     const [i0, j0] = convetCoordsToCanvasRect(downCoords,
       canvasClass.getCanvasSize(), globalState.parts);
     // eslint-disable-next-line no-param-reassign
@@ -94,6 +94,7 @@ function getRectangleHandler({ canvas, convetCoordsToCanvasRect, globalState }) 
     function onMouseUp() {
       const newImage = JSON.parse(JSON.stringify(tempRect));
       paintImage(newImage);
+      originalRect = JSON.parse(JSON.stringify(globalState.activeRect));
     }
 
     const mouseUpHandler = new Handler(canvas, 'mouseup', onMouseUp, { once: true });
