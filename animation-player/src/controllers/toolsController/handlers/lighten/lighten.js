@@ -36,7 +36,7 @@ function getLightenHandler({ canvas, convetCoordsToCanvasRect, globalState }) {
     globalState.activeFrame.paintState();
   }
 
-  const lightenHandler = new Handler(canvas, 'click', onClick);
+  const lightenHandler = new Handler(canvas, 'mouseup', onClick);
   return lightenHandler;
 }
 

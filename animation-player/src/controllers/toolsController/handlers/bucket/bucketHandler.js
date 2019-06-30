@@ -62,8 +62,7 @@ function getBucketHandler({ canvas, convetCoordsToCanvasRect, globalState }) {
     globalState.activeFrame.paintState();
   }
 
-  const bucketRightButtonHandler = new Handler(canvas, 'contextmenu', onClick);
-  const bucketHandler = new Handler(canvas, 'click', onClick, {}, [bucketRightButtonHandler]);
+  const bucketHandler = new Handler(canvas, 'mouseup', onClick);
   return bucketHandler;
 }
 

@@ -107,13 +107,21 @@ class Controller {
     this.view.resize();
 
     this.view.components.canvas.components.canvasNode.addEventListener('mousedown', () => {
-      if (!this.state.history.isEmpty()) {
+      if (this.state.history.isEmpty() && this.tools.state.currentTool) {
         this.state.history.append(JSON.parse(JSON.stringify(this.state.activeRect)));
       }
     });
 
-    this.view.components.canvas.components.canvasNode.addEventListener('mouseup', () => {
-      this.state.history.append(JSON.parse(JSON.stringify(this.state.activeRect)));
+    this.view.components.canvas.components.canvasNode.addEventListener('click', () => {
+      if (this.tools.state.currentTool) {
+        this.state.history.append(JSON.parse(JSON.stringify(this.state.activeRect)));
+      }
+    });
+
+    this.view.components.canvas.components.canvasNode.addEventListener('contextmenu', () => {
+      if (this.tools.state.currentTool) {
+        this.state.history.append(JSON.parse(JSON.stringify(this.state.activeRect)));
+      }
     });
 
     const KEYS = {

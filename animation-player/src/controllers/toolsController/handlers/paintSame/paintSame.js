@@ -30,8 +30,7 @@ function getSameColorPainterHandler({ canvas, convetCoordsToCanvasRect, globalSt
     globalState.activeFrame.paintState();
   }
 
-  const onClickRightButtonHandler = new Handler(canvas, 'contextmenu', onClick);
-  const onClickHandler = new Handler(canvas, 'click', onClick, {}, [onClickRightButtonHandler]);
+  const onClickHandler = new Handler(canvas, 'mouseup', onClick);
   return onClickHandler;
 }
 

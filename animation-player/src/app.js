@@ -1,6 +1,6 @@
 import api from './index';
 
-const showPopup = false;
+const showPopup = true;
 if (showPopup) {
   const { StartPageController, StartPageView } = api;
   const app = new StartPageController(StartPageView);

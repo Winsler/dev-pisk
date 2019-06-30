@@ -15,6 +15,7 @@ class List {
       item.previous = this.state;
     }
     this.state = item;
+    return item.value;
   }
 
   previous() {
@@ -46,7 +47,7 @@ class List {
   }
 
   isEmpty() {
-    return !!this.state;
+    return !this.state;
   }
 }
 
