@@ -24,7 +24,7 @@ class Controller {
       view: this.view,
       currColor: '#000',
       subCurrColor: '#000',
-      liveRects: this.view.components.frames.getItemsLiveList(),
+      liveRects: null,
       history: new List(),
       shortcuts: new ShortcutHolder(),
       changeShortcutMode: false,
@@ -88,19 +88,6 @@ class Controller {
       this.swapColors();
     });
 
-    this.state.liveRects.getNext = (function getNextWrapepr() {
-      let i = 0;
-      return function getNext() {
-        if (i >= this.length - 1) {
-          i = 0;
-        } else {
-          i += 1;
-        }
-        return this[i];
-      };
-    }());
-
-    startAnimationBinded();
     const canvasSize = this.view.components.canvas.getCanvasSize();
     this.state.mainCanvasSize = canvasSize;
     this.tools.init();
@@ -161,6 +148,21 @@ class Controller {
         this.state.shortcuts.shorcuts[e.keyCode]();
       }
     });
+
+    this.state.liveRects = this.view.components.frames.getItemsLiveList();
+    this.state.liveRects.getNext = (function getNextWrapepr() {
+      let i = 0;
+      return function getNext() {
+        if (i >= this.length - 1) {
+          i = 0;
+        } else {
+          i += 1;
+        }
+        return this[i];
+      };
+    }());
+
+    startAnimationBinded();
   }
 
   setToolsState() {

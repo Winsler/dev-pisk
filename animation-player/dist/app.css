@@ -88,27 +88,6 @@ body {
   position: absolute;
   right: 20px;
   height: 16px; }
-.frames-wrapper {
-  width: 100%; }
-  .frames-wrapper__list {
-    background-color: inherit; }
-    .frames-wrapper__list li {
-      margin-bottom: 1.5rem;
-      cursor: pointer; }
-  .frames-wrapper__btn {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-sizing: border-box;
-    width: 90%;
-    height: 2.5rem;
-    margin: 0 auto;
-    text-align: center; }
-  .frames-wrapper__btn-icon {
-    width: 26px;
-    height: 26px;
-    background-image: url(img/83a9a6f135533c2db0f7c411ec7d025d.png);
-    background-position: -274px -157px; }
 .palette {
   display: flex;
   flex-direction: column;
@@ -146,6 +125,8 @@ body {
     background-position: -274px 0; }
   .palette__tool--lighten {
     background-position: -138px -228px; }
+  .palette__tool--dithering {
+    background-position: 0 -228px; }
   .palette__tool--shortCuts {
     width: 36px;
     height: 21px;
@@ -236,6 +217,91 @@ body {
   position: fixed;
   bottom: 1rem;
   right: 1rem; }
+.frames-wrapper {
+  width: 100%; }
+  .frames-wrapper__list {
+    background-color: inherit; }
+    .frames-wrapper__list li {
+      margin-bottom: 1.5rem;
+      cursor: pointer; }
+  .frames-wrapper__btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    width: 90%;
+    height: 2.5rem;
+    margin: 0 auto;
+    text-align: center; }
+  .frames-wrapper__btn-icon {
+    width: 26px;
+    height: 26px;
+    background-image: url(img/83a9a6f135533c2db0f7c411ec7d025d.png);
+    background-position: -274px -157px; }
+.landing__screenshots {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 1000px;
+  margin: 0 auto; }
+  .landing__screenshots .landing__screnshot {
+    width: 300px; }
+
+.landing__features {
+  width: 36rem;
+  margin: 1rem auto;
+  border: 2px solid gold;
+  box-sizing: border-box;
+  border-radius: 2px;
+  padding: 1rem; }
+  .landing__features .fa-pen-fancy {
+    color: gold;
+    margin-right: 0.5rem; }
+  .landing__features .landing__feature {
+    margin: 0.25rem 0; }
+
+.landing__canvas-size-wrapper {
+  width: 30rem;
+  margin: 0.5rem auto;
+  display: block; }
+
+.landing__canvas-size {
+  width: 7rem;
+  background: #4C4C4C;
+  border: none;
+  font-weight: bold;
+  text-align: center; }
+  .landing__canvas-size:focus {
+    outline-color: gold; }
+
+.start-btn {
+  width: 7rem;
+  padding: 0.5rem;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  margin: 0 auto; }
+
+.landing__about {
+  width: 12rem;
+  margin: 1rem auto 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column; }
+
+.landing__link {
+  color: inherit;
+  line-height: 1.3; }
+  .landing__link--telegram {
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem; }
+    .landing__link--telegram img {
+      width: 2rem;
+      height: 2rem; }
+  .landing__link:hover {
+    color: gold; }
 @-webkit-keyframes flashing-border {
   0% {
     border: 2px solid #FFD700; }

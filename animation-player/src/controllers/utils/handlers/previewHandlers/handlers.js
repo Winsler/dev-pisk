@@ -1,5 +1,4 @@
 import '../../../../assets/gif';
-// import fs from 'fs';
 
 export function onRangeInput(inputEvt) {
   const fps = inputEvt.target.value;

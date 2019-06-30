@@ -1,9 +1,39 @@
 <section class="landing">
-  <article class="landing__screenshots"></article>
-  <article class="landing__examples"></article>
-  <article class="landing__description">Some Cool Page</article>
-  <article class="landing__about">
-    <span class="landing__link"></span>
-    <span class="landing__author"></span>
+  <article class="landing__screenshots">
+    <img class="landing__screnshot" src="./img/screen-shot-1.png" alt="">
+    <img class="landing__screnshot" src="./img/screen-shot-2.png" alt="">
+    <img class="landing__screnshot" src="./img/screen-shot-3.png" alt="">
   </article>
+  <article class="landing__examples"></article>
+  <article class="landing__description">
+    <ul class="landing__features">
+      <li class="landing__feature">
+        <i class="fas fa-pen-fancy"></i>
+        Use Ctrl+Z / Ctrl+Y to undo/redo changes.
+      </li>
+      <li class="landing__feature">
+        <i class="fas fa-pen-fancy"></i>
+        Use Ctr + Space to swap active colors.
+      </li>
+      <li class="landing__feature">
+        <i class="fas fa-pen-fancy"></i>
+        Use Ctrl / Shift for tools modification, see tools tooltips for more information.
+      </li>
+      <li class="landing__feature">
+        <i class="fas fa-pen-fancy"></i>
+        Be creative!
+      </li>
+    </ul>
+  </article>
+  <label class="landing__canvas-size-wrapper">Set preferred canvas Size between 3 and 64:
+    <input class="landing__canvas-size" type="text" id="canvasSize" value="32">
+  </label>
+  <div class="btn start-btn">Lets Paint It!</div>
+  <article class="landing__about">
+      <span class="landing__link-to-app"><a class="landing__link" href="https://winsler.github.io/rss-pisk/">Wiskel Paint</a></span>
+      <span class="landing__author">by <a class="landing__link" href="https://github.com/Winsler/">Roman Makretski</a></span>
+      <a class="landing__link landing__link--telegram" href="https://telegram.me/share/url?url=https://winsler.github.io/rss-pisk/&text=Your Wiskel!">
+        <img src="./img/telegram-gray.png" alt="share via telegram" title="Share via telegram">
+      </a>
+    </article>
 </section>

@@ -34,8 +34,7 @@ export function onFrameClick(frameListClickEvt) {
     this.state.activeFrame.disable();
     const canvas = currNode.querySelector('canvas');
     const copyRect = JSON.parse(JSON.stringify(canvas.linkToFrameClass.state.imageMatrix));
-    // this.state.rects.push(copyRect);
-    this.view.components.frames.addFrame(copyRect, this.state.rects.length);
+    this.view.components.frames.addFrame(copyRect, this.state.liveRects.length + 1);
     this.view.components.canvas.paintImage(copyRect);
 
     this.state.activeRect = copyRect;
