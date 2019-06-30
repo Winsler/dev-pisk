@@ -53,13 +53,19 @@ class Canvas extends NodeComponentView {
     }
   }
 
-  strokePath(startCoords, endCoords, color) {
+  strokePath(startCoords, endCoords, color, color2) {
     const startPath = startCoords.slice();
     const endPath = endCoords.slice();
     const rect = this.state.imageMatrix;
+    if (!color2) {
+      // eslint-disable-next-line no-param-reassign
+      color2 = color;
+    }
+
+    let currColor = (startPath[0] + startPath[1]) % 2 ? color : color2;
 
     // eslint-disable-next-line no-param-reassign
-    rect[startPath[0]][startPath[1]] = color;
+    rect[startPath[0]][startPath[1]] = currColor;
 
     function isEqual(coords1, coords2) {
       return coords1.every((el, elIndex) => el === coords2[elIndex]);
@@ -78,8 +84,10 @@ class Canvas extends NodeComponentView {
         startPath[1] += 1;
       }
       counter += 1;
+
+      currColor = (startPath[0] + startPath[1]) % 2 ? color : color2;
       // eslint-disable-next-line no-param-reassign
-      rect[startPath[0]][startPath[1]] = color;
+      rect[startPath[0]][startPath[1]] = currColor;
     }
     this.paintImage(rect);
   }

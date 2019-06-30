@@ -46,6 +46,10 @@ class Tools {
     this.tools.paintsamecolor = new Tool(sameColorPainter,
       [getHandlers.paintSameColor(handlerOptions)], [], 'S');
 
+    const { dithering } = this.mainController.view.components.tools.components;
+    this.tools.dithering = new Tool(dithering,
+      [getHandlers.dithering(handlerOptions)], [], 'D');
+
 
     function onToolSelectin(tool) {
       if (tool === this.state.currentTool) {

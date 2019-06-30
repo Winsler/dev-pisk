@@ -7,6 +7,7 @@ import getPipetteHandlers from './pipette/index';
 import getLightenHanlers from './lighten/index';
 import getPenHandlers from './pen/index';
 import getToolSelectionHandlers from './toolSelection';
+import getDitheringHandlers from './dithering/index';
 
 const getHandlers = {
   eraser: getEraserHandlers,
@@ -18,6 +19,7 @@ const getHandlers = {
   lighten: getLightenHanlers,
   pen: getPenHandlers,
   toolSelection: getToolSelectionHandlers,
+  dithering: getDitheringHandlers,
 };
 
 export default getHandlers;

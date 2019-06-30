@@ -1,0 +1,3 @@
+/animation-player/dist/**/*.js
+/animation-player/tests/**/*.js
+/animation-player/src/assets/**/*.js

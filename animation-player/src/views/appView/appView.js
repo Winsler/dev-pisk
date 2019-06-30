@@ -33,8 +33,8 @@ class AppView {
     this.components.canvas.paintImage(image);
   }
 
-  paintPath(corrds1, coords2, color) {
-    this.components.canvas.strokePath(corrds1, coords2, color);
+  paintPath(corrds1, coords2, color, color2) {
+    this.components.canvas.strokePath(corrds1, coords2, color, color2);
   }
 
   resize() {
