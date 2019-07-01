@@ -1,5 +1,5 @@
 function renderViewWithRandomRect() {
-  const rect = this.model.getBlackRect();
+  const rect = this.model.getEmptyRect();
   this.view.render(rect, this.options);
   this.state.activeRect = rect;
   const frame = this.view.components.frames.node.querySelector('canvas');

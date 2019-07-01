@@ -1,5 +1,5 @@
 export function onClickFrameBtn() {
-  const newRect = this.model.getBlackRect();
+  const newRect = this.model.getEmptyRect();
   this.view.components.frames.addFrame(newRect, this.state.liveRects.length + 1);
   this.view.components.canvas.paintImage(newRect);
 
