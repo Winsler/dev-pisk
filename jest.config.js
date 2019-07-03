@@ -1,6 +1,6 @@
 module.exports = {
   roots: [
-    '<rootDir>/animation-player/',
+    '<rootDir>/piskel-clone/',
   ],
   testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.js$',
   moduleFileExtensions: [
@@ -9,7 +9,7 @@ module.exports = {
   ],
   transform: {
     '^.+\\.js$': 'babel-jest',
-    '^.+\\.html$': '<rootDir>/animation-player/tests/utils/htmlLoader.js',
+    '^.+\\.html$': '<rootDir>/piskel-clone/tests/utils/htmlLoader.js',
   },
   moduleNameMapper: {
     '^.+\\.(css|sass)$': 'babel-jest',

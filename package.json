@@ -1,8 +1,8 @@
 {
-  "name": "animation-player",
+  "name": "piskel-clone",
   "version": "1.0.0",
-  "description": "https://github.com/rolling-scopes-school/tasks/blob/2018-Q3/tasks/piskel-animation-player.md",
-  "main": "animation-player/src/index.js",
+  "description": "https://github.com/rolling-scopes-school/tasks/blob/2018-Q3/tasks/piskel-piskel-clone.md",
+  "main": "piskel-clone/src/index.js",
   "browserslist": [
     "defaults"
   ],

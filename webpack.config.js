@@ -5,10 +5,10 @@ const webpack = require('webpack');
 const autoprefixer = require('autoprefixer');
 
 module.exports = {
-  entry: './animation-player/src/app.js',
+  entry: './piskel-clone/src/app.js',
   output: {
     filename: './js/app.js',
-    path: path.resolve(__dirname, 'animation-player/dist'),
+    path: path.resolve(__dirname, 'piskel-clone/dist'),
   },
   module: {
     rules: [
@@ -22,7 +22,7 @@ module.exports = {
   },
   plugins: [
     new ExtractTextPlugin('app.css'),
-    new HtmlWebpackPlugin({ template: './animation-player/src/assets/index.html' }),
+    new HtmlWebpackPlugin({ template: './piskel-clone/src/assets/index.html' }),
     new webpack.LoaderOptionsPlugin({
       options: {
         postcss: [
