@@ -3,6 +3,7 @@ export default class StartPageController {
     this.view = new StartPageView();
     this.api = api;
     this.defaultCanvasSize = 32;
+    this.user = null;
   }
 
   init() {
@@ -22,10 +23,32 @@ export default class StartPageController {
 
       document.body.innerHTML = '';
       const { Controller, View, Model } = this.api;
-      const mainApp = new Controller(View, Model, canvasSize);
+      const mainApp = new Controller(View, Model, canvasSize, this.user);
       mainApp.init();
     };
 
     this.view.components.startBtn.addEventListener('click', start);
+
+    const onLogin = (response) => {
+      if (!response.session.user) {
+        return;
+      }
+
+      const user = {
+        firstName: response.session.user.first_name || '',
+        lastName: response.session.user.last_name || '',
+      };
+
+      this.user = user;
+      this.view.greeting(user);
+    };
+
+    const { loginBtn } = this.view.components;
+    window.VK.UI.button(loginBtn);
+    loginBtn.addEventListener('click', () => {
+      window.VK.Auth.login(onLogin);
+    });
+
+    window.VK.Auth.getLoginStatus(onLogin);
   }
 }

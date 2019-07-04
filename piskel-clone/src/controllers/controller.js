@@ -7,9 +7,10 @@ import ShortcutHolder from './ShortcutHolder';
 import MyLocalStorage from './utils/MyLocalStorage';
 
 class Controller {
-  constructor(View, Model, size) {
+  constructor(View, Model, size, user) {
     this.view = new View(size);
     this.model = new Model(size);
+    this.user = user;
     this.options = {
       defaultFPS: 5,
     };
@@ -83,6 +84,10 @@ class Controller {
     restoreBtn.addEventListener('click', getHandlers.shortcutMenu.restoreShortCuts(this));
 
     this.view.node.addEventListener('keydown', getHandlers.global.saveHistoryOnKeyDown(this));
+
+    if (this.user) {
+      this.view.components.header.components.user.textContent = `${this.user.firstName} ${this.user.lastName}`;
+    }
 
     setLiveRects.call(this);
     startAnimation(this);

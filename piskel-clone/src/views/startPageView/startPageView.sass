@@ -1,74 +1,94 @@
 
-.landing__screenshots
-  display: flex
-  justify-content: space-between
-  align-items: center
-  width: 1000px
-  margin: 0 auto
+.landing
 
-  .landing__screnshot
-    width: 300px
+  &__screenshots
+    display: flex
+    justify-content: space-between
+    align-items: center
+    width: 80vw
+    max-width: 1000px
+    margin: 2rem auto
 
-.landing__features
-  width: 36rem
-  margin: 1rem auto
-  border: 2px solid gold
-  box-sizing: border-box
-  border-radius: 2px
-  padding: 1rem
+  &__screnshot
+    max-width: 300px
+    width: 70vh / 3
 
-  .fa-pen-fancy
-    color: gold
-    margin-right: 0.5rem
+  &__features
+    width: 36rem
+    margin: 1rem auto
+    border: 2px solid gold
+    box-sizing: border-box
+    border-radius: 2px
+    padding: 1rem
 
-  .landing__feature
+    .fa-pen-fancy
+      color: gold
+      margin-right: 0.5rem
+
+  &__feature
     margin: 0.25rem 0
 
 
-.landing__canvas-size-wrapper
-  width: 30rem
-  margin: 0.5rem auto
-  display: block
+  &__canvas-size-wrapper
+    width: 30rem
+    margin: 0.5rem auto
+    display: block
 
-.landing__canvas-size
-  width: 7rem
-  background: #4C4C4C
-  border: none
-  font-weight: bold
-  text-align: center
+  &__canvas-size
+    width: 7rem
+    background: #4C4C4C
+    border: none
+    font-weight: bold
+    text-align: center
 
-  &:focus
-    outline-color: gold
+    &:focus
+      outline-color: gold
 
+  &__greeting
+    display: block
+    width: 14rem
+    margin: 0 auto
+    text-align: center
 
-.start-btn
+  &__about
+    width: 12rem
+    margin: 1rem auto 0
+    display: flex
+    justify-content: center
+    align-items: center
+    flex-direction: column
+
+  &__link
+    color: inherit
+    line-height: 1.3
+
+    &--telegram
+      position: fixed
+      bottom: 1rem
+      right: 1rem
+
+    &-img
+      width: 2rem
+      height: 2rem
+
+    &:hover
+      color: gold
+
+.start-btn,
+.login-btn
   width: 7rem
   padding: 0.5rem
   display: flex
   align-content: center
   justify-content: center
-  margin: 0 auto
+  margin: 0.5rem auto
 
-.landing__about
-  width: 12rem
-  margin: 1rem auto 0
-  display: flex
-  justify-content: center
-  align-items: center
-  flex-direction: column
-
-.landing__link
-  color: inherit
-  line-height: 1.3
-
-  &--telegram
-    position: fixed
-    bottom: 1rem
-    right: 1rem
-
-    img
-      width: 2rem
-      height: 2rem
+.login-btn
+  border: none
 
   &:hover
-    color: gold
+    border: none
+
+
+.hidden
+  display: none
