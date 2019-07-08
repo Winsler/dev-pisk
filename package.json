@@ -9,7 +9,8 @@
   "scripts": {
     "start": "webpack-dev-server --mode development --watch",
     "build": "webpack --mode production",
-    "test": "jest"
+    "test": "jest",
+    "coverage": "jest --coverage"
   },
   "repository": {
     "type": "git",
@@ -48,5 +49,8 @@
   "dependencies": {
     "hex-to-hsl": "^1.0.2",
     "hsl-to-hex": "^1.0.0"
+  },
+  "jest": {
+    "testPathIgnorePatterns" : ["<rootDir>/piskel-clone/src/assets/gif.js", "<rootDir>/piskel-clone/src/assets/worker.js" ]
   }
 }

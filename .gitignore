@@ -3,3 +3,4 @@ node_modules
 *.bundle.js
 *.log
 piskel-clone/src/assets/dist
+coverage
