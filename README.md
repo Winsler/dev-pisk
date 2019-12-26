@@ -1,1 +1,1 @@
-[Link to Editor](https://winsler.github.io/rss-pisk/)
+[Try online](https://winsler.github.io/rss-pisk/)
